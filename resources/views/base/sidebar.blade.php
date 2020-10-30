@@ -22,12 +22,27 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ url('/directory')}}"><i class="fa fa-circle-o"></i>Home</a></li>
-            <li><a href="{{ url('/image_train/0')}}"><i class="fa fa-circle-o"></i>NIP Belum Terverifikasi</a></li>
-            <li><a href="{{ url('/image_train/2')}}"><i class="fa fa-circle-o"></i>NIP Training</a></li>
-          </ul>
+            <ul class="treeview-menu">
+              <li><a href="{{ url('/directory')}}"><i class="fa fa-circle-o"></i>Sekolah</a></li>
+              <li><a href="{{ url('/image_train/0')}}"><i class="fa fa-circle-o"></i>Kepala Sekolah</a></li>
+              <li><a href="{{ url('/image_train/2')}}"><i class="fa fa-circle-o"></i>Bendahara Sekolah</a></li>
+            </ul>
         </li>
+
+        <li>
+          <a href="{{ url('/pengajuanawal')}}">
+            <i class="fa fa-book"></i> <span>Pengajuan Dana</span>
+<!--             <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span> -->
+          </a>
+<!--             <ul class="treeview-menu">
+              <li><a href="{{ url('/directory')}}"><i class="fa fa-circle-o"></i>Sekolah</a></li>
+              <li><a href="{{ url('/image_train/0')}}"><i class="fa fa-circle-o"></i>Kepala Sekolah</a></li>
+              <li><a href="{{ url('/image_train/2')}}"><i class="fa fa-circle-o"></i>Bendahara Sekolah</a></li>
+            </ul> -->
+        </li>
+
       </ul>
     </section>
     <!-- /.sidebar -->

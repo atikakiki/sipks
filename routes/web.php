@@ -17,3 +17,6 @@ use Illuminate\Http\Request;
 Route::get('/', 'AuthController@loginIndex');
 Route::get('/register', 'AuthController@registerIndex');
 Route::get('/logout', 'AuthController@logout');
+
+Route::get('/dashboardtu', 'DashboardController@index');
+Route::get('/pengajuanawal', 'PengajuanController@awal');
