@@ -17,4 +17,16 @@ class DashboardController extends Controller
     public function index(){
     	return view('directory.dashboard');
     }
+
+    public function allsekolah(){
+    	return view('directory.sekolah');
+    }
+
+    public function allkepsek(){
+    	return view('directory.kepsek');
+    }
+
+    public function allbendahara(){
+    	return view('directory.bendahara');
+    }
 }

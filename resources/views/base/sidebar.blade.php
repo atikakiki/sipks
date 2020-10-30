@@ -23,9 +23,9 @@
             </span>
           </a>
             <ul class="treeview-menu">
-              <li><a href="{{ url('/directory')}}"><i class="fa fa-circle-o"></i>Sekolah</a></li>
-              <li><a href="{{ url('/image_train/0')}}"><i class="fa fa-circle-o"></i>Kepala Sekolah</a></li>
-              <li><a href="{{ url('/image_train/2')}}"><i class="fa fa-circle-o"></i>Bendahara Sekolah</a></li>
+              <li><a href="{{ url('/allsekolah')}}"><i class="fa fa-circle-o"></i>Sekolah</a></li>
+              <li><a href="{{ url('/allkepsek')}}"><i class="fa fa-circle-o"></i>Kepala Sekolah</a></li>
+              <li><a href="{{ url('/allbendahara')}}"><i class="fa fa-circle-o"></i>Bendahara Sekolah</a></li>
             </ul>
         </li>
 
@@ -42,6 +42,14 @@
               <li><a href="{{ url('/image_train/2')}}"><i class="fa fa-circle-o"></i>Bendahara Sekolah</a></li>
             </ul> -->
         </li>
+
+        <li>
+          <a href="{{ url('/lihatprofil')}}">
+            <i class="fa fa-user"></i> <span>Profil</span>
+          </a>
+        </li>
+
+
 
       </ul>
     </section>

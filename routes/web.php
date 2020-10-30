@@ -19,4 +19,10 @@ Route::get('/register', 'AuthController@registerIndex');
 Route::get('/logout', 'AuthController@logout');
 
 Route::get('/dashboardtu', 'DashboardController@index');
+Route::get('/allsekolah', 'DashboardController@allsekolah');
+Route::get('/allkepsek', 'DashboardController@allkepsek');
+Route::get('/allbendahara', 'DashboardController@allbendahara');
+
+Route::get('/lihatprofil', 'ProfilController@lihatprofil');
+
 Route::get('/pengajuanawal', 'PengajuanController@awal');

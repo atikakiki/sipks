@@ -23,6 +23,8 @@
   <link rel="stylesheet" href="{{ url('assets/bower_components/jvectormap/jquery-jvectormap.css')}}">
   <!-- Date Picker -->
   <link rel="stylesheet" href="{{ url('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ url('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ url('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
   <!-- bootstrap wysihtml5 - text editor -->
@@ -279,9 +281,12 @@
 <script src="{{ url('assets/bower_components/jquery-knob/dist/jquery.knob.min.js') }}"></script>
 <!-- daterangepicker -->
 <script src="{{ url('assets/bower_components/moment/min/moment.min.js') }}"></script>
-<script src="{{ url('assets/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ url('assets/boweFassetsr_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 <!-- datepicker -->
 <script src="{{ url('assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+<!-- DataTables -->
+<script src="{{ url('assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="{{ url('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
 <!-- Slimscroll -->
@@ -292,6 +297,30 @@
 <script src="{{ url('assets/dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('assets/dist/js/pages/dashboard.js') }}"></script>
+<!-- <script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script> -->
+<script>
+    
+$.noConflict();
+jQuery( document ).ready(function( $ ) {
+    $('#example2').DataTable();
+  // $(document).ready(function () {
+    $('.sidebar-menu').tree();
+    // $('#example2').DataTables();
+  })
+
+</script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ url('assets/dist/js/demo.js') }}"></script>
 @yield('moreJS')
