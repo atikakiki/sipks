@@ -81,8 +81,13 @@
 @section('content')
 <section class="content-header">
   <h1>
-    Profil
+    Personal Info
   </h1>
+  <ol class="breadcrumb">
+	  <li><a href="#"><i class="fa fa-user"></i>Profil</a></li>
+	<!--     <li><a href="#">Table Pengasuhan</a></li> -->
+	  <li class="active">Personal Info</li>
+  </ol>
 </section>
 
 <section class="content">
@@ -106,7 +111,7 @@
             </div>
             <div class="col-md-6">
                 <div class="profile-head">
-                        <h4>Personal Info</h4>
+                        <h4>Data Diri</h4>
                                     
                   <!--           <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
