@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 Route::get('/', 'AuthController@loginIndex');
 Route::get('/register', 'AuthController@registerIndex');
 Route::post('/login', 'AuthController@postLogin');
+Route::post('/register', 'AuthController@postRegister');
 Route::get('/logout', 'AuthController@logout');
 
 Route::get('/dashboard', 'DashboardController@index');
@@ -28,5 +29,5 @@ Route::get('/lihatprofil', 'ProfilController@lihatprofil');
 
 Route::get('/pengajuan', 'PengajuanController@awal');
 Route::get('/pengajuan/buat', 'PengajuanController@buatPengajuan');
-Route::get('/pengajuan/detail/id', 'PengajuanController@detailPengajuan');
+Route::get('/pengajuan/detail/{id}', 'PengajuanController@detailPengajuan');
 Route::get('/pengajuan/download_template', 'PengajuanController@downloadCoursesTemplate');

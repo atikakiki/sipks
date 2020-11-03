@@ -116,10 +116,12 @@
 	          <tbody>
 	          <?php 
 	            $no = 1;
-	           ?>                                  
+	           ?>       
+
+             @foreach($sekolahs as $key => $sekolah)                           
 	            <tr>
-	              <td><?php echo $no++; ?></td>
-	              <td>aa</td>
+	              <td>{{$key+1}}</td>
+	              <td>{{$sekolah->nama_sekolah}}</td>
 	              <td>aa</td>
 	              <td>aa</td>
 	              <td>aa</td>
@@ -128,6 +130,8 @@
 	              <td>aa</td>
 	              <td>aa</td>
 	            </tr>
+
+              @endforeach
 	          
 	          </tbody>
 	        </table>

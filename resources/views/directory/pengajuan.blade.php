@@ -43,22 +43,25 @@
 	          <tbody>
 	          <?php 
 	            $no = 1;
-	           ?>                                  
+	           ?> 
+
+
+             @foreach($pengajuans as $key => $pengajuan)                                    
 	            <tr>
-	              <td><?php echo $no++; ?></td>
-	              <td>123</td>
+	              <td>{{$key+1}}</td>
+	              <td>{{$pengajuan->id_pengajuan}}</td>
 	              <td>1</td>
 	              <td>1</td>
-	              <td>Alat Tulis Kantor</td>
+	              <td>{{$pengajuan->judul_pengajuan}}</td>
 	              <td>ATK periode 2019/2020</td>
 	              <td>1.000.000</td>
 	              <td>Menunggu Persetujuan</td>
-	              <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/id')}}'" type="button">Detail</button>
+	              <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button">Detail</button>
 				  		<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit">Edit</button>
                         <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus">Hapus</button>
                   </td>
 	            </tr>
-	          
+	           @endforeach
 	          </tbody>
 	        </table>
 	      </div>

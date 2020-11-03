@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Sekolah;
+use App\Models\User;
 
 //ytambahan dari dinpen
 use File;
@@ -19,10 +21,12 @@ class DashboardController extends Controller
     }
 
     public function allsekolah(){
-    	return view('directory.sekolah');
+        $data['sekolahs'] = Sekolah::get();
+    	return view('directory.sekolah',$data);
     }
 
     public function allkepsek(){
+        $data['kepseks'] = User::where('role_akun','1')->get();
     	return view('directory.kepsek');
     }
 

@@ -103,10 +103,10 @@
                         <div class="profile-img">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
                             <!-- <img src="#" width="64" /> -->
-                            <div class="file btn btn-lg btn-primary">
+                     <!--        <div class="file btn btn-lg btn-primary">
                                 Change Photo
                                 <input type="file" name="file"/>
-                            </div>
+                            </div> -->
                         </div>
             </div>
             <div class="col-md-6">
@@ -127,7 +127,7 @@
                                  <label>Id User</label>
                              </div>
                              <div class="col-md-6">
-                                 <p>1223</p>
+                                 <p>{{$user->id}}</p>
                              </div>
                          </div>
                          <div class="row">
@@ -180,12 +180,12 @@
                          </div>
                 </div>
             </div>
-            <div class="col-md-2">
+        <!--     <div class="col-md-2"> -->
                         <!-- <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/> -->
-                         <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#">Edit Profile</a>
+                       <!--   <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#">Edit Profile</a> -->
                         <!-- <a style="background-color: #800000;" class="btn btn-sm btn-danger" data-toggle="modal" data-target="">Edit Profile</a>  -->
    
-            </div>
+         <!--    </div> -->
 
           <!-- tutup row -->
         </div>
@@ -193,51 +193,6 @@
        </form>  
  
 </div>
-
-
-  <div class="modal fade" id="#">
-    <div class="modal-dialog">
-      <form action="#"  method="post">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Edit Profil</h4>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <input type="hidden" class="form-control" name="" value="">
-            </div>
-         
-            <div class="form-group">                
-              <label>Nama</label>
-              <input type="text" class="form-control" name="" id="" value="Chaniyah" required>
-            </div>
-
-            <div class="form-group">                
-              <label>Username</label>
-              <input type="text" id='' name="" class="form-control" value="">
-            </div>
-            <div class="form-group">  
-
-            <div class="form-group">                
-              <label>Alamat</label>
-              <input type="text" id='' name="" class="form-control" value="">
-            </div>
-
-            <div class="form-group">                
-              <label>No Telepon</label>
-              <input type="numeric" id='' name="" class="form-control" value="">
-            </div>              
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="submit" name="simpan" class="btn btn-primary">Save</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
 
 
 </section>

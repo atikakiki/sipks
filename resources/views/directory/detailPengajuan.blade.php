@@ -41,11 +41,12 @@
 	          <tbody>
 	          <?php 
 	            $no = 1;
-	           ?>                                  
+	           ?>  
+             @foreach ($detail_pengajuans as $key => $dp)                                 
 	            <tr>
-	              <td><?php echo $no++; ?></td>
+	              <td>{{$key+1}}</td>
 	              <td>123</td>
-	              <td>Spidol /kotak</td>
+	              <td>{{$dp->nama_detail}}</td>
 	              <td>3</td>
 	              <td>100.000</td>
 	              <td>300.000</td>
@@ -53,6 +54,8 @@
                         <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus">Hapus</button>
                   </td>
 	            </tr>
+              @endforeach
+
 	          </tbody>
 	        </table>
 	      </div>
