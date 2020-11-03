@@ -20,4 +20,15 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    public function postLogin(Request $request){
+        if(Auth::attempt([
+          'email' => $request->email,
+          'password' => $request->password
+        ], $request->remember)){
+          return redirect('/dashboard')->with('success','Login sukses');
+        }
+  
+        else return redirect('/')->with('error','Username / Password salah');
+      }
 }
