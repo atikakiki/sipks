@@ -30,7 +30,7 @@
         </li>
 
         <li>
-          <a href="{{ url('/pengajuanawal')}}">
+          <a href="{{ url('/pengajuan')}}">
             <i class="fa fa-book"></i> <span>Pengajuan Dana</span>
 <!--             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
