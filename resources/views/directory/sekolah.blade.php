@@ -126,8 +126,8 @@
 	              <td>{{$sekolah->email_sekolah}}</td>
 	              <td>{{$sekolah->jenjang_sekolah}}</td>
 	              <td>{{$sekolah->no_telp_sekolah}}</td>
-	              <td>{{$sekolah->nama_rek_sekolah}}</td>
-	              <td>{{$sekolah->bank_rek_sekolah}}</td>
+	              <td>{{$sekolah->nama_norek_sekolah}}</td>
+	              <td>{{$sekolah->bank_norek_sekolah}}</td>
 	              <td>{{$sekolah->no_rek_sekolah}}</td>
 	            </tr>
 

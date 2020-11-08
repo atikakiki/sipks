@@ -105,25 +105,26 @@
 	             <th>No</th>
 	             <th>ID User</th>
 	             <th>NIP</th>
-				 <th>Nama</th>
-				 <th>Email</th>
-				 <th>Alamat</th>
-				 <th>Nomor Telepon</th>
+      				 <th>Nama</th>
+      				 <th>Email</th>
+      				 <th>Alamat</th>
+      				 <th>Nomor Telepon</th>
 	            </tr>
 	          </thead>
 	          <tbody>
-	          <?php 
-	            $no = 1;
-	           ?>                                  
-	            <tr>
-	              <td><?php echo $no++; ?></td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	            </tr>
+             @foreach($bendaharas as $key=>$bend)
+
+              <tr>
+                <td>{{$key+1}}</td>
+                <td>{{$bend->id}}</td>
+                <td>{{$bend->NIP_akun}}</td>
+                <td>{{$bend->name}}</td>
+                <td>{{$bend->email}}</td>
+                <td>{{$bend->alamat_akun}}</td>
+                <td>{{$bend->no_telp_akun}}</td>
+              </tr>
+
+              @endforeach
 	          
 	          </tbody>
 	        </table>

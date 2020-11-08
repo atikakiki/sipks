@@ -105,25 +105,27 @@
 	             <th>No</th>
 	             <th>ID User</th>
 	             <th>NIP</th>
-				 <th>Nama</th>
-				 <th>Email</th>
-				 <th>Alamat</th>
-				 <th>Nomor Telepon</th>
+      				 <th>Nama</th>
+      				 <th>Email</th>
+      				 <th>Alamat</th>
+      				 <th>Nomor Telepon</th>
 	            </tr>
 	          </thead>
 	          <tbody>
-	          <?php 
-	            $no = 1;
-	           ?>                                  
+
+             @foreach($kepseks as $key=>$kepsek)
+
 	            <tr>
-	              <td><?php echo $no++; ?></td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
+	              <td>{{$key+1}}</td>
+	              <td>{{$kepsek->id}}</td>
+	              <td>{{$kepsek->NIP_akun}}</td>
+	              <td>{{$kepsek->name}}</td>
+	              <td>{{$kepsek->email}}</td>
+	              <td>{{$kepsek->alamat_akun}}</td>
+	              <td>{{$kepsek->no_telp_akun}}</td>
 	            </tr>
+
+              @endforeach
 	          
 	          </tbody>
 	        </table>

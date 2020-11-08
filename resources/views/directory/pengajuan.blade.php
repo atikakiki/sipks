@@ -50,7 +50,7 @@
 	            <tr>
 	              <td>{{$key+1}}</td>
 	              <td>{{$pengajuan->id_pengajuan}}</td>
-	              <td>{{$pengajuan->id_sekolah}}</td>
+	              <td>{{$pengajuan->nama_sekolah}}</td>
 	              <td>{{$pengajuan->id_akun}}</td>
 	              <td>{{$pengajuan->judul_pengajuan}}</td>
 	              <td>{{$pengajuan->deskripsi_pengajuan}}</td>
@@ -101,7 +101,7 @@
                     @method('put')
                     <div class="form-group">
                       <label>Sekolah</label>
-                      <input type="text" class="form-control" name="id_sekolah" value="{{ $pengajuan->id_sekolah }}" required>
+                      <input type="text" class="form-control" name="nama_sekolah" value="{{ $pengajuan->nama_sekolah }}" disabled>
                     </div>
                     <div class="form-group">
                       <label>Judul Pengajuan</label>

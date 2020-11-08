@@ -27,10 +27,11 @@ class DashboardController extends Controller
 
     public function allkepsek(){
         $data['kepseks'] = User::where('role_akun','1')->get();
-    	return view('directory.kepsek');
+    	return view('directory.kepsek',$data);
     }
 
     public function allbendahara(){
-    	return view('directory.bendahara');
+        $data['bendaharas'] = User::where('role_akun','2')->get();
+    	return view('directory.bendahara',$data);
     }
 }

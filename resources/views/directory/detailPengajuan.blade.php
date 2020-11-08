@@ -12,7 +12,7 @@
   </h1>
   <ol class="breadcrumb">
 	  <li><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-	  <li>Data Pengajuan</li>
+	  <li><a href="{{ url('/pengajuan')}}">Data Pengajuan</a></li>
 	  <li class="active">Judul Pengajuan</li>
   </ol>
 </section>
@@ -45,15 +45,87 @@
              @foreach ($detail_pengajuans as $key => $dp)                                 
 	            <tr>
 	              <td>{{$key+1}}</td>
-	              <td>123</td>
+	              <td>{{$dp->id_detail}}</td>
 	              <td>{{$dp->nama_detail}}</td>
-	              <td>3</td>
-	              <td>100.000</td>
-	              <td>300.000</td>
-	              <td><button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit">Edit</button>
-                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus">Hapus</button>
+	              <td>{{$dp->jumlah_detail}}</td>
+	              <td>{{$dp->harga_satuan_detail}}</td>
+	              <td>{{$dp->total_harga_detail}}</td>
+                <td>
+              <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit{{$dp->id_detail}}"><i class="fa fa-fw fa-pencil"></i></button>
+              <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus{{$dp->id_detail}}"><i class="fa fa-fw fa-trash"></i></button>
                   </td>
 	            </tr>
+
+              <div class="modal modal-danger fade" id="modal-hapus{{$dp->id_detail}}" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                      <h4 class="modal-title">Hapus Detail</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Anda yakin ingin menghapus detail pengajuan {{$dp->nama_detail}} ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <form action = "{{ url('detailpengajuan/hapus/'.$dp->id_pengajuan.'/'.$dp->id_detail) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-outline" >Ya</button>
+                      </form>
+                      <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
+                    </div>
+                   </div>
+                  <!-- /.modal-content -->
+                  </div>
+                </div>
+                <!-- /.modal-dialog -->
+
+            <div class="modal fade" id="modal-edit{{$dp->id_detail}}" style="display: none;">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Edit Detail Pengajuan</h4>
+                  </div>
+                  <div class="modal-body">
+                  <form action="{{ url('detailpengajuan/edit/'.$dp->id_pengajuan.'/'.$dp->id_detail) }}" method="POST">
+                    @csrf
+                    @method('put')
+                  <!--   <div class="form-group"> -->
+                     <!--  <label>ID Detail</label>
+ -->                      <input type="hidden" class="form-control" name="id_detail" value="{{ $dp->id_detail }}" required>
+                   <!--  </div> -->
+                    <div class="form-group">
+                      <label>Nama Detail</label>
+                      <input type="text" class="form-control" name="nama_detail" value="{{$dp->nama_detail}}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Jumlah</label>
+                      <input type="text" class="form-control" name="jumlah_detail" value="{{$dp->jumlah_detail}}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Harga Satuan</label>
+                      <input type="text" class="form-control" name="harga_satuan_detail" value="{{$dp->harga_satuan_detail}}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Total</label>
+                      <input type="text" class="form-control" name="total_harga_detail" value="{{$dp->total_harga_detail}}" required>
+                    </div>
+
+                    <div class="box-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                    </div>
+                  </form>
+                </div>
+                </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
               @endforeach
 
 	          </tbody>
@@ -64,69 +136,6 @@
 	  </div>
 	</div>
 
-    <div class="modal fade in" id="modal-edit" style="display: none;">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Edit Detail Pengajuan</h4>
-              </div>
-              <form action="" method="post">
-              <div class="modal-body">
-                    <div class="form-group">
-                    <label>ID Detail (nanti di hide/disabled)</label>
-                    <input type="text" disabled class="form-control" id="id_akun">
-                    </div>
-                    <div class="form-group">
-                    <label>Nama Detail</label>
-                    <input type="text" class="form-control" id="nama_detail" placeholder="Pulpen /kotak">
-                    </div>
-                    <div class="form-group">
-                    <label>Jumlah</label>
-                    <input type="text" class="form-control" id="jumlah_detail" placeholder="3">
-                    </div>
-                    <div class="form-group">
-                    <label>Harga Satuan</label>
-                    <input type="text" class="form-control" id="harga_satuan_detail" placeholder="100.000">
-                    </div>
-                    <div class="form-group">
-                    <label>Total</label>
-                    <input type="text" class="form-control" id="total_harga_detail" placeholder="300.000">
-                    </div>
-                </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-              </div>
-              </form>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
-        <div class="modal modal-danger fade" id="modal-hapus" style="display: none;">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Hapus Detail</h4>
-              </div>
-              <div class="modal-body">
-                <p>Anda yakin ingin menghapus detail ini?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
-                <button type="button" class="btn btn-outline">Ya</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
   </section>
 @endsection
 

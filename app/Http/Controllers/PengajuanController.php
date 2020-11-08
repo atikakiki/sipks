@@ -13,6 +13,7 @@ use Session;
 
 use App\Exports\CoursesTemplateExport;
 use App\Models\Pengajuan;
+use App\Models\Sekolah;
 use App\Models\DetailPengajuan;
 use App\Models\User;
 
@@ -20,7 +21,11 @@ class PengajuanController extends Controller
 {
     //
     public function awal(){
-        $data['pengajuans'] = Pengajuan::get();
+        // $data['pengajuans'] = Pengajuan::get();
+        $data['pengajuans'] = DB::table('Pengajuan')->join('Sekolah', function ($join)
+        {
+            $join->on('Pengajuan.id_sekolah', '=', 'Sekolah.id_sekolah');
+        })->get();
     	return view('directory.pengajuan', $data);
     }
 
@@ -33,7 +38,7 @@ class PengajuanController extends Controller
     public function postPengajuan(Request $request){
  
               $newPengajuan = new Pengajuan();
-              $newPengajuan->id_sekolah = $request->id_sekolah;
+              $newPengajuan->nama_sekolah = $request->nama_sekolah;
               $newPengajuan->id_akun = Auth::user()->id;
               $newPengajuan->judul_pengajuan = $request->judul_pengajuan;
               $newPengajuan->deskripsi_pengajuan = $request->deskripsi_pengajuan;
@@ -77,6 +82,24 @@ class PengajuanController extends Controller
     public function detailPengajuan($id){
          $data['detail_pengajuans'] = DetailPengajuan::where('id_pengajuan',$id)->get();
     	return view('directory.detailPengajuan', $data);
+    }
+
+    public function hapusdetailPengajuan($id_pengajuan,$id_detail){
+        //return dd($id);
+        DetailPengajuan::destroy($id_detail);
+        return redirect()->route('detailawal', [$id_pengajuan]);
+        // redirect()->action('App\Http\Controllers\PengajuanController@detailPengajuan', [1]);
+    }
+
+    public function editdetailPengajuan(Request $request,$id_pengajuan,$id_detail){
+        $updateDetail = DetailPengajuan::find($id_detail);
+        $updateDetail->nama_detail = $request->nama_detail;
+        $updateDetail->jumlah_detail = $request->jumlah_detail;
+        $updateDetail->harga_satuan_detail = $request->harga_satuan_detail;
+        $updateDetail->total_harga_detail = $request->total_harga_detail;
+
+        $updateDetail->save();
+        return redirect()->route('detailawal', [$id_pengajuan]);
     }
 
     public function downloadCoursesTemplate()

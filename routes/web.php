@@ -30,7 +30,11 @@ Route::get('/lihatprofil', 'ProfilController@lihatprofil');
 Route::get('/pengajuan', 'PengajuanController@awal');
 Route::get('/pengajuan/tambah', 'PengajuanController@buatPengajuan');
 Route::post('/pengajuan/postPengajuan', 'PengajuanController@postPengajuan');
-Route::get('/pengajuan/detail/{id}', 'PengajuanController@detailPengajuan');
 Route::get('/pengajuan/download_template', 'PengajuanController@downloadCoursesTemplate');
 Route::delete('/pengajuan/hapus/{Pengajuan}', 'PengajuanController@hapusPengajuan');
 Route::put('/pengajuan/edit/{Pengajuan}', 'PengajuanController@editPengajuan');
+
+// Route::get('/pengajuan/detail/{id}', 'PengajuanController@detailPengajuan');
+Route::get('/pengajuan/detail/{id}', array('as'=>'detailawal', 'uses'=>'PengajuanController@detailPengajuan'));
+Route::delete('/detailpengajuan/hapus/{Pengajuan}/{DetailPengajuan}', 'PengajuanController@hapusdetailPengajuan');
+Route::put('/detailpengajuan/edit/{Pengajuan}/{DetailPengajuan}','PengajuanController@editdetailPengajuan');
