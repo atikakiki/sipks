@@ -23,7 +23,7 @@
 	    <div class="panel panel-warning">  
         <div class="box-body" style="overflow-y:scroll">
           <div class = "page-header">
-          <button onclick="location.href='{{ url('/pengajuan/buat')}}'" type="button" class = "btn btn-danger"><i class = "fa fa-plus"></i> Tambah Pengajuan</button>
+          <button onclick="location.href='{{ url('/pengajuan/tambah')}}'" type="button" class = "btn btn-danger"><i class = "fa fa-plus"></i> Tambah Pengajuan</button>
           <button onclick="location.href='{{ url('/pengajuan/download_template')}}'" type="button" class = "btn btn-success"><i class = "fa fa-download"></i> Download template detail</button>
         </div>
 	        <table id="example2" class="table table-striped table-bordered bg-info table-hover text-center">
@@ -50,113 +50,113 @@
 	            <tr>
 	              <td>{{$key+1}}</td>
 	              <td>{{$pengajuan->id_pengajuan}}</td>
-	              <td>1</td>
-	              <td>1</td>
+	              <td>{{$pengajuan->id_sekolah}}</td>
+	              <td>{{$pengajuan->id_akun}}</td>
 	              <td>{{$pengajuan->judul_pengajuan}}</td>
-	              <td>ATK periode 2019/2020</td>
-	              <td>1.000.000</td>
-	              <td>Menunggu Persetujuan</td>
-	              <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button">Detail</button>
-				  		<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit">Edit</button>
-                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus">Hapus</button>
+	              <td>{{$pengajuan->deskripsi_pengajuan}}</td>
+	              <td>{{$pengajuan->jumlah_pengajuan}}</td>
+	              <td>{{$pengajuan->status_pengajuan}}</td>
+	              <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>
+				  		<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit{{$pengajuan->id_pengajuan}}"><i class="fa fa-fw fa-pencil"></i></button>
+              <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus{{$pengajuan->id_pengajuan}}"><i class="fa fa-fw fa-trash"></i></button>
                   </td>
 	            </tr>
-	           @endforeach
+
+              <div class="modal modal-danger fade" id="modal-hapus{{$pengajuan->id_pengajuan}}" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                      <h4 class="modal-title">Hapus Pengajuan</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Anda yakin ingin menghapus pengajuan ini? {{$pengajuan->id_pengajuan}}</p>
+                    </div>
+                    <div class="modal-footer">
+                      <form action = "{{ url('pengajuan/hapus/'.$pengajuan->id_pengajuan) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-outline" >Ya</button>
+                      </form>
+                      <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
+                    </div>
+                   </div>
+                  <!-- /.modal-content -->
+                  </div>
+                </div>
+                <!-- /.modal-dialog -->
+              
+              <div class="modal fade" id="modal-edit{{$pengajuan->id_pengajuan}}" style="display: none;">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Edit Pengajuan</h4>
+                  </div>
+                  <div class="modal-body">
+                  <form action="{{ url('pengajuan/edit/'.$pengajuan->id_pengajuan) }}" method="POST">
+                    @csrf
+                    @method('put')
+                    <div class="form-group">
+                      <label>Sekolah</label>
+                      <input type="text" class="form-control" name="id_sekolah" value="{{ $pengajuan->id_sekolah }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Judul Pengajuan</label>
+                      <input type="text" class="form-control" name="judul_pengajuan" value="{{$pengajuan->judul_pengajuan}}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Deskripsi Pengajuan</label>
+                      <input type="text" class="form-control" name="deskripsi_pengajuan" value="{{$pengajuan->deskripsi_pengajuan}}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Jumlah</label>
+                      <input type="text" class="form-control" name="jumlah_pengajuan" value="{{$pengajuan->jumlah_pengajuan}}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Nama Pembuat</label>
+                      <input type="text" class="form-control" name="nama_pembuat_pengajuan" value="{{$pengajuan->nama_pembuat_pengajuan}}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Jabatan Pembuat</label>
+                      <input type="text" class="form-control" name="jabatan_pembuat_pengajuan" value="{{$pengajuan->jabatan_pembuat_pengajuan}}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Upload Detail Pengajuan</label>
+                      <input type="file" id="detail_pengajuan">
+                    </div>
+                    <div class="box-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                    </div>
+                  </form>
+                </div>
+                </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+              @endforeach
 	          </tbody>
 	        </table>
 	      </div>
 
 	    </div>
 	  </div>
-	  <div class="modal fade in" id="modal-edit" style="display: none;">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Edit Pengajuan</h4>
-              </div>
-              <form action="" method="post">
-              <div class="modal-body">
-			  <form action="" method="post">
-                <div class="form-group">
-                  <label>Sekolah</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>ID Akun (nanti di hide)</label>
-                  <input type="text" class="form-control" id="id_akun" placeholder="Masukkan Judul Pengajuan">
-                </div>
-                <div class="form-group">
-                  <label>Judul Pengajuan</label>
-                  <input type="text" class="form-control" id="judul_pengajuan" placeholder="Masukkan Judul Pengajuan">
-                </div>
-                <div class="form-group">
-                  <label>Deskripsi Pengajuan</label>
-                  <input type="text" class="form-control" id="deskripsi_pengajuan" placeholder="Masukkan Deskripsi Pengajuan">
-                </div>
-                <div class="form-group">
-                  <label>Jumlah</label>
-                  <input type="text" class="form-control" id="jumlah_pengajuan" placeholder="Masukkan Nominal Pengajuan">
-                </div>
-                <div class="form-group">
-                  <label>Nama Pembuat</label>
-                  <input type="text" class="form-control" id="nama_pembuat_pengajuan" placeholder="Masukkan Nama Pembuat Pengajuan">
-                </div>
-                <div class="form-group">
-                  <label>Jabatan Pembuat</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Detail Pengajuan</label>
-                  <input type="file" id="detail_pengajuan">
-                </div>
-                </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-              </div>
-              </form>
-              
-            </div>
-			</div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
-        <div class="modal modal-danger fade" id="modal-hapus" style="display: none;">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Hapus Pengajuan</h4>
-              </div>
-              <div class="modal-body">
-                <p>Anda yakin ingin menghapus pengajuan ini?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
-                <button type="button" class="btn btn-outline">Ya</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
+	  
 	</div>
+
   </section>
 @endsection
 
 @section('moreJS')
   <script type="text/javascript">
-
-
+     function delete_confirm(url){
+      $('#modal-hapus').modal();
+      $('#btn-delete').attr("href", url);
+    }
   </script>
 @endsection

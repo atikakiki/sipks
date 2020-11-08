@@ -102,15 +102,15 @@
 	        <table id="example2" class="table table-striped table-bordered bg-info table-hover text-center">
 	          <thead>
 	            <tr>
-	             <th>No</th>
-	             <th>Nama Sekolah</th>
-				 <th>Alamat</th>
-				 <th>Email</th>
-				 <th>Jenjang</th>
-				 <th>Nomor Telepon</th>
-				 <th>Nama Rek</th>
-				 <th>Bank Rek</th>
-				 <th>No.Rek</th>
+                <th>No</th>
+                <th>Nama Sekolah</th>
+                <th>Alamat</th>
+                <th>Email</th>
+                <th>Jenjang</th>
+                <th>Nomor Telepon</th>
+                <th>Nama Rek</th>
+                <th>Bank Rek</th>
+                <th>No.Rek</th>
 	            </tr>
 	          </thead>
 	          <tbody>
@@ -122,13 +122,13 @@
 	            <tr>
 	              <td>{{$key+1}}</td>
 	              <td>{{$sekolah->nama_sekolah}}</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
-	              <td>aa</td>
+	              <td>{{$sekolah->alamat_sekolah}}</td>
+	              <td>{{$sekolah->email_sekolah}}</td>
+	              <td>{{$sekolah->jenjang_sekolah}}</td>
+	              <td>{{$sekolah->no_telp_sekolah}}</td>
+	              <td>{{$sekolah->nama_rek_sekolah}}</td>
+	              <td>{{$sekolah->bank_rek_sekolah}}</td>
+	              <td>{{$sekolah->no_rek_sekolah}}</td>
 	            </tr>
 
               @endforeach

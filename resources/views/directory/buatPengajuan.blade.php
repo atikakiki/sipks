@@ -22,40 +22,35 @@
 	  <div class="col-xs-12">
 	    <div class="panel panel-warning">  
         <div class="box-body">
-        <form action="" method="post">
+        <form action="{{ url('pengajuan/postPengajuan') }}" method="POST">
+        @csrf
                 <div class="form-group">
                   <label>Sekolah</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>ID Akun (nanti di hide)</label>
-                  <input type="text" class="form-control" id="id_akun" placeholder="Masukkan Judul Pengajuan">
+                  <input type="text" class="form-control" name="id_sekolah" placeholder="Masukkan Nama Sekolah" required>
                 </div>
                 <div class="form-group">
                   <label>Judul Pengajuan</label>
-                  <input type="text" class="form-control" id="judul_pengajuan" placeholder="Masukkan Judul Pengajuan">
+                  <input type="text" class="form-control" name="judul_pengajuan" placeholder="Masukkan Judul Pengajuan" required>
                 </div>
                 <div class="form-group">
                   <label>Deskripsi Pengajuan</label>
-                  <input type="text" class="form-control" id="deskripsi_pengajuan" placeholder="Masukkan Deskripsi Pengajuan">
+                  <input type="text" class="form-control" name="deskripsi_pengajuan" placeholder="Masukkan Deskripsi Pengajuan" required>
                 </div>
                 <div class="form-group">
                   <label>Jumlah</label>
-                  <input type="text" class="form-control" id="jumlah_pengajuan" placeholder="Masukkan Nominal Pengajuan">
+                  <input type="text" class="form-control" name="jumlah_pengajuan" placeholder="Masukkan Nominal Pengajuan" required>
                 </div>
                 <div class="form-group">
                   <label>Nama Pembuat</label>
-                  <input type="text" class="form-control" id="nama_pembuat_pengajuan" placeholder="Masukkan Nama Pembuat Pengajuan">
+                  <input type="text" class="form-control" name="nama_pembuat_pengajuan" placeholder="Masukkan Nama Pembuat Pengajuan" required>
                 </div>
                 <div class="form-group">
                   <label>Jabatan Pembuat</label>
-                  <select class="form-control">
+                  <input type="text" class="form-control" name="jabatan_pembuat_pengajuan" placeholder="Masukkan Jabatan Pembuat Pengajuan" required>
+                  <!-- <select class="form-control">
                     <option>option 1</option>
                     <option>option 2</option>
-                  </select>
+                  </select> -->
                 </div>
                 <div class="form-group">
                   <label>Upload Detail Pengajuan</label>

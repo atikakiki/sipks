@@ -28,6 +28,9 @@ Route::get('/allbendahara', 'DashboardController@allbendahara');
 Route::get('/lihatprofil', 'ProfilController@lihatprofil');
 
 Route::get('/pengajuan', 'PengajuanController@awal');
-Route::get('/pengajuan/buat', 'PengajuanController@buatPengajuan');
+Route::get('/pengajuan/tambah', 'PengajuanController@buatPengajuan');
+Route::post('/pengajuan/postPengajuan', 'PengajuanController@postPengajuan');
 Route::get('/pengajuan/detail/{id}', 'PengajuanController@detailPengajuan');
 Route::get('/pengajuan/download_template', 'PengajuanController@downloadCoursesTemplate');
+Route::delete('/pengajuan/hapus/{Pengajuan}', 'PengajuanController@hapusPengajuan');
+Route::put('/pengajuan/edit/{Pengajuan}', 'PengajuanController@editPengajuan');

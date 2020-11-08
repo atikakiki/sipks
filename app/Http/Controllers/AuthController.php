@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class AuthController extends Controller
@@ -41,12 +42,14 @@ class AuthController extends Controller
 
           try {
             $newUser = new User();
-            $newUser->fullname = $request->firstname.' '.$request->lastname;
+            $newUser->NIP_akun = $request->nip;
+            $newUser->name = $request->nama;
+            $newUser->alamat_akun = $request->alamat;
+            $newUser->no_telp_akun = $request->telp;
             $newUser->email = $request->email;
-            $newUser->username = $request->username;
-            $newUser->intake_code = $request->intake_code;
+            $newUser->username_akun = $request->username;
             $newUser->password = bcrypt($request->password);
-            $newUser->level = 1;
+            $newUser->role_akun = 3;
 
             // if($request->file('img') != NULL){
             //   $picture = $request->file('img');
