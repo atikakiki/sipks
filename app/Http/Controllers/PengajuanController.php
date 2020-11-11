@@ -38,7 +38,7 @@ class PengajuanController extends Controller
     public function postPengajuan(Request $request){
  
               $newPengajuan = new Pengajuan();
-              $newPengajuan->nama_sekolah = $request->nama_sekolah;
+              $newPengajuan->id_sekolah = $request->id_sekolah;
               $newPengajuan->id_akun = Auth::user()->id;
               $newPengajuan->judul_pengajuan = $request->judul_pengajuan;
               $newPengajuan->deskripsi_pengajuan = $request->deskripsi_pengajuan;
@@ -54,9 +54,42 @@ class PengajuanController extends Controller
               // }
                
               $newPengajuan->save();
-            return redirect('/pengajuan')->with('success','Pengajuan ditambahkan.');
+            //   $data['id_pengajuan']=$newPengajuan->id_pengajuan;
+            //   dd($newPengajuan->id_pengajuan);
+            return redirect()->route('tambahDetail',[$newPengajuan->id_pengajuan]);
+            // return redirect('/pengajuan/tambahDetail', $data);
   
     }
+
+    public function postDetail(Request $request){
+ 
+        $id_pengajuan = Pengajuan::latest('id_pengajuan')->first()->id_pengajuan;
+        $newDetail = new DetailPengajuan();
+        $newDetail->id_pengajuan = $id_pengajuan;
+        $newDetail->nama_detail = $request->nama_detail;
+        $newDetail->jumlah_detail = $request->jumlah_detail;
+        $newDetail->harga_satuan_detail = $request->harga_satuan_detail;
+        $newDetail->total_harga_detail = $request->total_harga_detail;
+        // dd($newDetail);
+        // if($request->file('img') != NULL){
+        //   $picture = $request->file('img');
+        //   $newUser->picture = 'uploads/avatar/'.$newUser->username.'.'.$picture->getClientOriginalExtension();
+        //   $picture->move('uploads/avatar/',$newUser->picture);
+        // }
+         
+        $newDetail->save();
+      //   $data['id_pengajuan']=$newPengajuan->id_pengajuan;
+      //   dd($newPengajuan->id_pengajuan);
+      return redirect('/pengajuan');
+            // return redirect('/pengajuan/tambahDetail', $data);
+
+}
+
+    public function tambahDetailPengajuan(){
+
+    	return view('directory.buatDetailPengajuan');
+    }
+
 
     public function hapusPengajuan($id){
         //return dd($id);
@@ -100,11 +133,6 @@ class PengajuanController extends Controller
 
         $updateDetail->save();
         return redirect()->route('detailawal', [$id_pengajuan]);
-    }
-
-    public function downloadCoursesTemplate()
-    {
-        return Excel::download(new CoursesTemplateExport(), 'Courses.xlsx');
     }
 
 }

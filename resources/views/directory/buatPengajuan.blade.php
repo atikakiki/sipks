@@ -52,14 +52,11 @@
                     <option>option 2</option>
                   </select> -->
                 </div>
-                <div class="form-group">
-                  <label>Upload Detail Pengajuan</label>
-                  <input type="file" id="detail_pengajuan">
-                </div>
+                
               </div>
               <div class="box-footer">
                 <button type="button" onclick="location.href='{{ url('/pengajuan')}}'" class="btn btn-default pull-left" >Close</button>
-                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                <button type="submit" class="btn btn-primary pull-right">Selanjutnya</button>
               </div>
             </form>
 	    </div>

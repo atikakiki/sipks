@@ -24,7 +24,6 @@
         <div class="box-body" style="overflow-y:scroll">
           <div class = "page-header">
           <button onclick="location.href='{{ url('/pengajuan/tambah')}}'" type="button" class = "btn btn-danger"><i class = "fa fa-plus"></i> Tambah Pengajuan</button>
-          <button onclick="location.href='{{ url('/pengajuan/download_template')}}'" type="button" class = "btn btn-success"><i class = "fa fa-download"></i> Download template detail</button>
         </div>
 	        <table id="example2" class="table table-striped table-bordered bg-info table-hover text-center">
 	          <thead>
