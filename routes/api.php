@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', 'ApiController@login');
+Route::get('/profile', 'ApiController@getprofile')->middleware('auth:api');

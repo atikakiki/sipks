@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Passport\Client;  
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ApiController extends Controller
 {
@@ -47,5 +48,10 @@ class ApiController extends Controller
           $request->request->add($params);
           $proxy = Request::create('oauth/token','POST');
           return Route::dispatch($proxy);
+        }
+
+        public function getprofile (){
+          $data['profile'] = Auth::user();
+          return json_encode($data);
         }
 }
