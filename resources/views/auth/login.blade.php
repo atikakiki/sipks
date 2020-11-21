@@ -45,6 +45,9 @@
                                     {{ __('Login') }}
                                 </button>
                             </div>
+                            <div class="col-md-8 offset-md-4">
+                            Belum memiliki akun?<a href="{{ url('register') }}"> Register</a>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -10,6 +10,7 @@ use File;
 use Intervention\Image\Facades\Image as Image;
 use DB;
 use Session;
+use Validator;
 
 use App\Exports\CoursesTemplateExport;
 use App\Models\Pengajuan;
@@ -61,29 +62,71 @@ class PengajuanController extends Controller
   
     }
 
-    public function postDetail(Request $request){
+//     public function postDetail(Request $request){
  
-        $id_pengajuan = Pengajuan::latest('id_pengajuan')->first()->id_pengajuan;
-        $newDetail = new DetailPengajuan();
-        $newDetail->id_pengajuan = $id_pengajuan;
-        $newDetail->nama_detail = $request->nama_detail;
-        $newDetail->jumlah_detail = $request->jumlah_detail;
-        $newDetail->harga_satuan_detail = $request->harga_satuan_detail;
-        $newDetail->total_harga_detail = $request->total_harga_detail;
-        // dd($newDetail);
-        // if($request->file('img') != NULL){
-        //   $picture = $request->file('img');
-        //   $newUser->picture = 'uploads/avatar/'.$newUser->username.'.'.$picture->getClientOriginalExtension();
-        //   $picture->move('uploads/avatar/',$newUser->picture);
-        // }
+//         $id_pengajuan = Pengajuan::latest('id_pengajuan')->first()->id_pengajuan;
+//         $newDetail = new DetailPengajuan();
+//         $newDetail->id_pengajuan = $id_pengajuan;
+//         $newDetail->nama_detail = $request->nama_detail;
+//         $newDetail->jumlah_detail = $request->jumlah_detail;
+//         $newDetail->harga_satuan_detail = $request->harga_satuan_detail;
+//         $newDetail->total_harga_detail = $request->total_harga_detail;
+//         // dd($newDetail);
+//         // if($request->file('img') != NULL){
+//         //   $picture = $request->file('img');
+//         //   $newUser->picture = 'uploads/avatar/'.$newUser->username.'.'.$picture->getClientOriginalExtension();
+//         //   $picture->move('uploads/avatar/',$newUser->picture);
+//         // }
          
-        $newDetail->save();
-      //   $data['id_pengajuan']=$newPengajuan->id_pengajuan;
-      //   dd($newPengajuan->id_pengajuan);
-      return redirect('/pengajuan');
-            // return redirect('/pengajuan/tambahDetail', $data);
+//         $newDetail->save();
+//       //   $data['id_pengajuan']=$newPengajuan->id_pengajuan;
+//       //   dd($newPengajuan->id_pengajuan);
+//       return redirect('/pengajuan');
+//             // return redirect('/pengajuan/tambahDetail', $data);
+// }
 
-}
+        public function postDetail(Request $request)
+            {
+                $id_pengajuan = Pengajuan::latest('id_pengajuan')->first()->id_pengajuan;
+
+                if($request->ajax())
+                {
+                $rules = array(
+                'nama_detail.*'  => 'required',
+                'jumlah_detail.*'  => 'required',
+                'harga_satuan_detail.*'  => 'required',
+                'total_harga_detail.*'  => 'required'
+                );
+                $error = Validator::make($request->all(), $rules);
+                if($error->fails())
+                {
+                return response()->json([
+                    'error'  => $error->errors()->all()
+                ]);
+                }
+                $nama_detail = $request->nama_detail;
+                $jumlah_detail = $request->jumlah_detail;
+                $harga_satuan_detail = $request->harga_satuan_detail;
+                $total_harga_detail = $request->total_harga_detail;
+                for($count = 0; $count < count($nama_detail); $count++)
+                {
+                $data = array(
+                    'id_pengajuan'=>$id_pengajuan,
+                    'nama_detail' => $nama_detail[$count],
+                    'jumlah_detail'  => $jumlah_detail[$count],
+                    'harga_satuan_detail' => $harga_satuan_detail[$count],
+                    'total_harga_detail' => $total_harga_detail[$count]
+                );
+                $insert_data[] = $data; 
+                }
+
+                DetailPengajuan::insert($insert_data);
+                // return redirect('/pengajuan');
+                return response()->json([
+                'success'  => 'Data Added successfully.'
+                ]);
+                }
+            }
 
     public function tambahDetailPengajuan(){
 

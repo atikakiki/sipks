@@ -28,11 +28,19 @@
   <link rel="stylesheet" href="{{ url('assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ url('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+  <!-- <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+   
+     -->
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ url('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{ url('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
-  @yield('moreCSS')
+  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+  
+@yield('moreCSS')
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -265,6 +273,10 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
+<!-- <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
 <script src="{{ url('assets/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ url('assets/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
@@ -289,9 +301,7 @@
 <script src="{{ url('assets/boweFassetsr_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 <!-- datepicker -->
 <script src="{{ url('assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-<!-- DataTables -->
-<script src="{{ url('assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ url('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+
 <!-- Bootstrap WYSIHTML5 -->
 <script src="{{ url('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
 <!-- Slimscroll -->
@@ -302,6 +312,9 @@
 <script src="{{ url('assets/dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('assets/dist/js/pages/dashboard.js') }}"></script>
+<!-- DataTables -->
+<script src="{{ url('assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <!-- <script>
   $(function () {
     $('#example1').DataTable()

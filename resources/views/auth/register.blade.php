@@ -92,6 +92,9 @@
                                 <button type="submit" class="btn btn-primary">Register
                                 </button>
                             </div>
+                            <div class="col-md-8 offset-md-4">
+                            Sudah memiliki akun?<a href="{{ url('/') }}"> Login</a>
+                            </div>
                         </div>
                     </form>
                 </div>
