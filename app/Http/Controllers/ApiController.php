@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use File;
+use Intervention\Image\Facades\Image as Image;
+use DB;
+use Session;
+use Validator;
+
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;  
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Pengajuan;
+use App\Models\DetailPengajuan;
 
 class ApiController extends Controller
 {
@@ -54,4 +62,23 @@ class ApiController extends Controller
           $data['profile'] = Auth::user();
           return json_encode($data);
         }
+
+        public function getpengajuan (){
+          // $data['pengajuan'] = Auth::user();
+
+         $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
+        {
+            $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
+                  ->where ('users.id', Auth::user()->id);
+        })->get();
+
+           return json_encode($data);
+        }
+
+        public function getdetail($id){
+          $data['detailpeng'] = DetailPengajuan::where('id_pengajuan',$id)->get();
+          // $data['detailpeng'] = DetailPengajuan::get();
+          return json_encode($data);
+        }
+
 }
