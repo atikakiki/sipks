@@ -12,7 +12,6 @@ use DB;
 use Session;
 use Validator;
 
-use App\Exports\CoursesTemplateExport;
 use App\Models\Pengajuan;
 use App\Models\Sekolah;
 use App\Models\DetailPengajuan;
