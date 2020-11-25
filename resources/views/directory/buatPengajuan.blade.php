@@ -26,7 +26,13 @@
         @csrf
                 <div class="form-group">
                   <label>Sekolah</label>
-                  <input type="text" class="form-control" name="id_sekolah" placeholder="Masukkan Nama Sekolah" required>
+                  <select class="form-control" name="id_sekolah">
+                  <option value="" disabled selected>Pilih Sekolah</option>
+                  @foreach($sekolahs as $key=>$sekolah)
+                    <option value="{{$sekolah->id_sekolah}}">{{$sekolah->nama_sekolah}}</option>
+                  @endforeach
+                  </select>
+                  <!-- <input type="text" class="form-control" name="id_sekolah" placeholder="Masukkan Nama Sekolah" required> -->
                 </div>
                 <div class="form-group">
                   <label>Judul Pengajuan</label>

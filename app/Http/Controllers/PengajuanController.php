@@ -20,6 +20,10 @@ use App\Models\User;
 
 class PengajuanController extends Controller
 {
+        public function __construct()
+    {
+        $this->middleware('auth');
+    }
     //
     public function awal(){
         // $data['pengajuans'] = Pengajuan::get();
@@ -32,8 +36,8 @@ class PengajuanController extends Controller
 
 
     public function buatPengajuan(){
-
-    	return view('directory.buatPengajuan');
+        $data['sekolahs'] = Sekolah::get();
+    	return view('directory.buatPengajuan',$data);
     }
 
     public function postPengajuan(Request $request){
