@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', 'ApiController@login');
+// Route::post('/', 'ApiController@login')->name('login');
 Route::get('/profile', 'ApiController@getprofile')->middleware('auth:api');
 
 Route::get('/pengajuan', 'ApiController@getpengajuan')->middleware('auth:api');
@@ -24,3 +25,5 @@ Route::get('pengajuan/detail/{id}', [
      'uses'       => 'ApiController@getdetail',
      'middleware' => 'auth:api',
 ]);
+
+Route::post('pengajuan/detail', 'ApiController@postPengajuan')->middleware('auth:api');

@@ -63,14 +63,16 @@ class ApiController extends Controller
           return json_encode($data);
         }
 
-        public function getpengajuan (){
+        public function getpengajuan (Request $request){
+
           // $data['pengajuan'] = Auth::user();
 
          $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
         {
             $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
                   ->where ('users.id', Auth::user()->id);
-        })->get();
+
+        })->where('status_pengajuan',$request->status)->get();
 
            return json_encode($data);
         }
@@ -79,6 +81,13 @@ class ApiController extends Controller
           $data['detailpeng'] = DetailPengajuan::where('id_pengajuan',$id)->get();
           // $data['detailpeng'] = DetailPengajuan::get();
           return json_encode($data);
+        }
+
+        public function postPengajuan (Request $request){
+          $data = Pengajuan::where('id_pengajuan',$request->id)->first();
+          $data->status_pengajuan = '1';
+          $data->save();
+          return json_encode(['status'=>'OK']);
         }
 
 }
