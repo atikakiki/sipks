@@ -103,7 +103,7 @@
 	          <thead>
 	            <tr>
 	             <th>No</th>
-	             <th>ID User</th>
+	             <th>Sekolah</th>
 	             <th>NIP</th>
       				 <th>Nama</th>
       				 <th>Email</th>
@@ -116,7 +116,7 @@
 
               <tr>
                 <td>{{$key+1}}</td>
-                <td>{{$bend->id}}</td>
+                <td>{{$bend->nama_sekolah}}</td>
                 <td>{{$bend->NIP_akun}}</td>
                 <td>{{$bend->name}}</td>
                 <td>{{$bend->email}}</td>

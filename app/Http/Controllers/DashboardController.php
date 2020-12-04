@@ -26,12 +26,22 @@ class DashboardController extends Controller
     }
 
     public function allkepsek(){
-        $data['kepseks'] = User::where('role_akun','1')->get();
-    	return view('directory.kepsek',$data);
+        $data['kepseks'] =  DB::table('users')
+        ->join('sekolah', function ($join) {
+            $join->on('users.id_sekolah', '=', 'sekolah.id_sekolah')
+                 ->where('users.role_akun', '=', 1);
+        })
+        ->get();
+        return view('directory.kepsek',$data);
     }
 
     public function allbendahara(){
-        $data['bendaharas'] = User::where('role_akun','2')->get();
+        $data['bendaharas'] =DB::table('users')
+        ->join('sekolah', function ($join) {
+            $join->on('users.id_sekolah', '=', 'sekolah.id_sekolah')
+                 ->where('users.role_akun', '=', 2);
+        })
+        ->get();
     	return view('directory.bendahara',$data);
     }
 }

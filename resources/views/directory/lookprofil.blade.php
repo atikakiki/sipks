@@ -122,12 +122,13 @@
                                 </li> -->
                          <!--    </ul> -->
                          <br><br><br>
+                         @foreach($users as $key=>$user)
                          <div class="row">
                              <div class="col-md-6">
-                                 <label>Id User</label>
+                                 <label>Sekolah</label>
                              </div>
                              <div class="col-md-6">
-                                 <p>{{$user->id}}</p>
+                                 <p>{{$user->nama_sekolah}}</p>
                              </div>
                          </div>
                          <div class="row">
@@ -135,7 +136,7 @@
                                  <label>NIP</label>
                              </div>
                              <div class="col-md-6">
-                                 <p>07261QQ</p>
+                                 <p>{{$user->NIP_akun}}</p>
                              </div>
                          </div>
                          <div class="row">
@@ -143,7 +144,7 @@
                                  <label>Nama</label>
                              </div>
                              <div class="col-md-6">
-                                 <p>Chaniyah Zulfa Mukhlishah</p>
+                                 <p>{{$user->name}}</p>
                              </div>
                          </div>
                          <div class="row">
@@ -151,7 +152,7 @@
                                  <label>Username</label>
                              </div>
                              <div class="col-md-6">
-                                 <p>chaaan_</p>
+                                 <p>{{$user->username_akun}}</p>
                              </div>
                          </div>
                          <div class="row">
@@ -159,7 +160,7 @@
                                  <label>Email</label>
                              </div>
                              <div class="col-md-6">
-                                 <p>tu1@gmail.com</p>
+                                 <p>{{$user->email}}</p> 
                              </div>
                          </div>
                          <div class="row">
@@ -167,7 +168,7 @@
                                  <label>Alamat</label>
                              </div>
                              <div class="col-md-6">
-                                 <p>yagitu</p>
+                                 <p>{{$user->alamat_akun}}</p>
                              </div>
                          </div>
                          <div class="row">
@@ -175,11 +176,12 @@
                                  <label>No Telepon</label>
                              </div>
                              <div class="col-md-6">
-                                 <p>081216831244</p>
+                                 <p>{{$user->no_telp_akun}}</p>
                              </div>
                          </div>
                 </div>
             </div>
+            @endforeach
         <!--     <div class="col-md-2"> -->
                         <!-- <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/> -->
                        <!--   <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#">Edit Profile</a> -->

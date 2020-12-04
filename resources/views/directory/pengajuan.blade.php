@@ -29,9 +29,10 @@
 	          <thead>
 	            <tr>
                 <th>No</th>
-                <th>ID</th>
+                <!-- <th>ID</th> -->
                 <th>Sekolah</th>
                 <th>Akun</th>
+                <th>Waktu Pengajuan</th>
                 <th>Judul</th>
                 <th>Deskripsi</th>
                 <th>Jumlah</th>
@@ -48,9 +49,10 @@
              @foreach($pengajuans as $key => $pengajuan)                                    
 	            <tr>
 	              <td>{{$key+1}}</td>
-	              <td>{{$pengajuan->id_pengajuan}}</td>
+	              <!-- <td>{{$pengajuan->id_pengajuan}}</td> -->
 	              <td>{{$pengajuan->nama_sekolah}}</td>
 	              <td>{{$pengajuan->id_akun}}</td>
+                <td>{{$pengajuan->create_time}}</td>
 	              <td>{{$pengajuan->judul_pengajuan}}</td>
 	              <td>{{$pengajuan->deskripsi_pengajuan}}</td>
 	              <td>{{$pengajuan->jumlah_pengajuan}}</td>

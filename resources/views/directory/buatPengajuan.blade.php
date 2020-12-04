@@ -47,12 +47,24 @@
                   <input type="text" class="form-control" name="jumlah_pengajuan" placeholder="Masukkan Nominal Pengajuan" required>
                 </div>
                 <div class="form-group">
-                  <label>Nama Pembuat</label>
-                  <input type="text" class="form-control" name="nama_pembuat_pengajuan" placeholder="Masukkan Nama Pembuat Pengajuan" required>
+                  <label>Nama Peminta</label>
+                  <select class="form-control" name="nama_pembuat_pengajuan">
+                  <option value="" disabled selected>Pilih Nama</option>
+                  
+                    <option value=""></option>
+                  
+                  </select>
+                  <!-- <input type="text" class="form-control" name="nama_pembuat_pengajuan" placeholder="Masukkan Nama Pembuat Pengajuan" required> -->
                 </div>
                 <div class="form-group">
-                  <label>Jabatan Pembuat</label>
-                  <input type="text" class="form-control" name="jabatan_pembuat_pengajuan" placeholder="Masukkan Jabatan Pembuat Pengajuan" required>
+                  <label>Jabatan Peminta</label>
+                  <select class="form-control" name="jabatan_pembuat_pengajuan">
+                  <option value="" disabled selected>Pilih Jabatan</option>
+                  
+                    <option value=""></option>
+                  
+                  </select>
+                  <!-- <input type="text" class="form-control" name="jabatan_pembuat_pengajuan" placeholder="Masukkan Jabatan Pembuat Pengajuan" required> -->
                   <!-- <select class="form-control">
                     <option>option 1</option>
                     <option>option 2</option>

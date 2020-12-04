@@ -17,7 +17,12 @@ class ProfilController extends Controller
     //
     public function lihatprofil()
     {
-    	$data['user'] = User::where('id',Auth::user()->id)->first();
+    	$data['users'] = DB::table('users')
+        ->join('sekolah', function ($join) {
+            $join->on('users.id_sekolah', '=', 'sekolah.id_sekolah')
+                 ->where('users.id',Auth::user()->id);
+        })
+        ->get();
     	return view('directory.lookprofil',$data);
     }
 }
