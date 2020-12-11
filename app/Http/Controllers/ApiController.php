@@ -58,10 +58,21 @@ class ApiController extends Controller
           return Route::dispatch($proxy);
         }
 
-        public function getprofile (){
-          $data['profile'] = Auth::user();
+        // public function getprofile (){
+        //   $data['profile'] = Auth::user();
+        //   return json_encode($data);
+        // }
+
+        public function getprofile () {
+          $data['profile'] = DB::table('users')->join('sekolah', function($join)
+          {
+            $join->on('users.id_sekolah', '=', 'sekolah.id_sekolah')
+                  ->where('users.id', Auth::user()->id);
+          })->get();
           return json_encode($data);
         }
+
+
 
         public function getpengajuan (Request $request){
 
