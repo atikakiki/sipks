@@ -66,10 +66,10 @@ $(document).ready(function(){
     function detail_field(number)
     {
         html = '<tr>';
-        html += '<td><input type="text" name="nama_detail[]" class="form-control" /></td>';
-        html += '<td><input type="text" name="jumlah_detail[]" class="form-control" /></td>';
+        html += '<td><select class="form-control" name="id_detail[]"><option value="">Pilih Detail</option>@foreach($details as $key=>$detail)<option value="{{$detail->id_detail}}">{{$detail->nama_detail}}</option>@endforeach</select></td>';
+        html += '<td><input type="number" name="jumlah_detail[]" class="form-control" /></td>';
         html += '<td><input type="text" name="harga_satuan_detail[]" class="form-control" /></td>';
-        html += '<td><input type="text" name="total_harga_detail[]" class="form-control" /></td>';
+        html += '<td><input type="number" name="sub_total[]" class="form-control" /></td>';
         if(number > 1)
         {
             html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">Hapus</button></td></tr>';

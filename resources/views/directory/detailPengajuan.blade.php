@@ -30,7 +30,7 @@
 	          <thead>
 	            <tr>
                 <th>No</th>
-                <th>ID Detail</th>
+                <!-- <th>ID Detail</th> -->
                 <th>Nama Detail</th>
                 <th>Jumlah</th>
                 <th>Harga Satuan</th>
@@ -45,11 +45,11 @@
              @foreach ($detail_pengajuans as $key => $dp)                                 
 	            <tr>
 	              <td>{{$key+1}}</td>
-	              <td>{{$dp->id_detail}}</td>
+	              <!-- <td>{{$dp->id_detail}}</td> -->
 	              <td>{{$dp->nama_detail}}</td>
 	              <td>{{$dp->jumlah_detail}}</td>
-	              <td>{{$dp->harga_satuan_detail}}</td>
-	              <td>{{$dp->total_harga_detail}}</td>
+	              <td>{{$dp->harga_satuan}}</td>
+	              <td>{{$dp->sub_total}}</td>
                 <td>
               <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit{{$dp->id_detail}}"><i class="fa fa-fw fa-pencil"></i></button>
               <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus{{$dp->id_detail}}"><i class="fa fa-fw fa-trash"></i></button>
@@ -90,28 +90,34 @@
                     <h4 class="modal-title">Edit Detail Pengajuan</h4>
                   </div>
                   <div class="modal-body">
-                  <form action="{{ url('detailpengajuan/edit/'.$dp->id_pengajuan.'/'.$dp->id_detail) }}" method="POST">
+                  <form action="{{ url('detailpengajuan/edit/'.$dp->id_mapping_pengajuan_detail) }}" method="POST">
                     @csrf
                     @method('put')
                   <!--   <div class="form-group"> -->
                      <!--  <label>ID Detail</label>
- -->                      <input type="hidden" class="form-control" name="id_detail" value="{{ $dp->id_detail }}" required>
+ -->                      <input type="text" class="form-control" name="id_mapping_pengajuan_detail" value="{{ $dp->id_mapping_pengajuan_detail}}" required>
                    <!--  </div> -->
                     <div class="form-group">
                       <label>Nama Detail</label>
-                      <input type="text" class="form-control" name="nama_detail" value="{{$dp->nama_detail}}" required>
+                      <!-- <input type="text" class="form-control" name="id_detail" value="{{$dp->id_detail}}" required>{{$dp->nama_detail}} -->
+                      <select class="form-control" name="id_detail">
+                        <option value="{{$dp->id_detail}}" selected>{{$dp->nama_detail}}</option>
+                        @foreach($details as $key=>$detail)
+                        <option value="{{$detail->id_detail}}">{{$detail->nama_detail}}</option>
+                        @endforeach
+                      </select>
                     </div>
                     <div class="form-group">
                       <label>Jumlah</label>
-                      <input type="text" class="form-control" name="jumlah_detail" value="{{$dp->jumlah_detail}}" required>
+                      <input type="number" class="form-control" name="jumlah_detail" value="{{$dp->jumlah_detail}}" required>
                     </div>
                     <div class="form-group">
                       <label>Harga Satuan</label>
-                      <input type="text" class="form-control" name="harga_satuan_detail" value="{{$dp->harga_satuan_detail}}" required>
+                      <input type="text" class="form-control" name="harga_satuan_detail" value="{{$dp->harga_satuan}}" required disabled>
                     </div>
                     <div class="form-group">
                       <label>Total</label>
-                      <input type="text" class="form-control" name="total_harga_detail" value="{{$dp->total_harga_detail}}" required>
+                      <input type="text" class="form-control" name="sub_total" value="{{$dp->sub_total}}" required>
                     </div>
 
                     <div class="box-footer">

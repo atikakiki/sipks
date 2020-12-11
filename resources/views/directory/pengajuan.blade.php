@@ -31,11 +31,12 @@
                 <th>No</th>
                 <!-- <th>ID</th> -->
                 <th>Sekolah</th>
-                <th>Akun</th>
                 <th>Waktu Pengajuan</th>
                 <th>Judul</th>
                 <th>Deskripsi</th>
                 <th>Jumlah</th>
+                <th>Nama Pembuat</th>
+                <th>Nama Peminta</th>
                 <th>Status</th>
                 <th>Aksi</th>
 	            </tr>
@@ -51,11 +52,12 @@
 	              <td>{{$key+1}}</td>
 	              <!-- <td>{{$pengajuan->id_pengajuan}}</td> -->
 	              <td>{{$pengajuan->nama_sekolah}}</td>
-	              <td>{{$pengajuan->id_akun}}</td>
-                <td>{{$pengajuan->create_time}}</td>
+                <td>{{$pengajuan->create_time_pengajuan}}</td>
 	              <td>{{$pengajuan->judul_pengajuan}}</td>
 	              <td>{{$pengajuan->deskripsi_pengajuan}}</td>
 	              <td>{{$pengajuan->jumlah_pengajuan}}</td>
+                <td>{{$pengajuan->id_akun}}</td>
+                <td>{{$pengajuan->nama_pembuat_pengajuan}}</td>
 	              <td>{{$pengajuan->status_pengajuan}}</td>
 	              <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>
 				  		<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit{{$pengajuan->id_pengajuan}}"><i class="fa fa-fw fa-pencil"></i></button>
@@ -119,15 +121,6 @@
                     <div class="form-group">
                       <label>Nama Pembuat</label>
                       <input type="text" class="form-control" name="nama_pembuat_pengajuan" value="{{$pengajuan->nama_pembuat_pengajuan}}" required>
-                    </div>
-                    <div class="form-group">
-                      <label>Jabatan Pembuat</label>
-                      <input type="text" class="form-control" name="jabatan_pembuat_pengajuan" value="{{$pengajuan->jabatan_pembuat_pengajuan}}" required>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label>Upload Detail Pengajuan</label>
-                      <input type="file" id="detail_pengajuan">
                     </div>
                     <div class="box-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>

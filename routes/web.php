@@ -35,6 +35,9 @@ Route::post('/pengajuan/postDetail', 'PengajuanController@postDetail')->name('de
 // Route::get('/pengajuan/download_template', 'PengajuanController@downloadCoursesTemplate');
 Route::delete('/pengajuan/hapus/{Pengajuan}', 'PengajuanController@hapusPengajuan');
 Route::put('/pengajuan/edit/{Pengajuan}', 'PengajuanController@editPengajuan');
+Route::post('/pengajuan/cekjudul/{judul}', 'PengajuanController@cekjudul');
+Route::post('/pengajuan/getJabatan/{id}', 'PengajuanController@getJabatan');
+Route::get('/pengajuan/getJabatan/{id}', 'PengajuanController@getJabatan');
 
 // Route::get('/pengajuan/detail/{id}', 'PengajuanController@detailPengajuan');
 Route::get('/pengajuan/detail/{id}', array('as'=>'detailawal', 'uses'=>'PengajuanController@detailPengajuan'));
