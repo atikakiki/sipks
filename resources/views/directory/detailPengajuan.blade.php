@@ -56,7 +56,7 @@
                   </td>
 	            </tr>
 
-              <div class="modal modal-danger fade" id="modal-hapus{{$dp->id_detail}}" style="display: none;">
+              <div class="modal modal-danger fade" id="modal-hapus{{$dp->id_mapping_pengajuan_detail}}" style="display: none;">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -65,10 +65,10 @@
                       <h4 class="modal-title">Hapus Detail</h4>
                     </div>
                     <div class="modal-body">
-                      <p>Anda yakin ingin menghapus detail pengajuan {{$dp->nama_detail}} ?</p>
+                      <p>Anda yakin ingin menghapus detail pengajuan {{$dp->id_mapping_pengajuan_detail}} ?</p>
                     </div>
                     <div class="modal-footer">
-                      <form action = "{{ url('detailpengajuan/hapus/'.$dp->id_pengajuan.'/'.$dp->id_detail) }}" method="post">
+                      <form action = "{{ url('detailpengajuan/hapus/'.$dp->id_pengajuan.'/'.$dp->id_mapping_pengajuan_detail) }}" method="post">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-outline" >Ya</button>
@@ -81,7 +81,7 @@
                 </div>
                 <!-- /.modal-dialog -->
 
-            <div class="modal fade" id="modal-edit{{$dp->id_detail}}" style="display: none;">
+                <div class="modal fade" id="modal-edit{{$dp->id_mapping_pengajuan_detail}}" style="display: none;">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -90,7 +90,7 @@
                     <h4 class="modal-title">Edit Detail Pengajuan</h4>
                   </div>
                   <div class="modal-body">
-                  <form action="{{ url('detailpengajuan/edit/'.$dp->id_mapping_pengajuan_detail) }}" method="POST">
+                  <form action="{{ url('detailpengajuan/edit/'.$dp->id_pengajuan.'/'.$dp->id_mapping_pengajuan_detail) }}" method="POST">
                     @csrf
                     @method('put')
                   <!--   <div class="form-group"> -->

@@ -56,7 +56,7 @@
 	              <td>{{$pengajuan->judul_pengajuan}}</td>
 	              <td>{{$pengajuan->deskripsi_pengajuan}}</td>
 	              <td>{{$pengajuan->jumlah_pengajuan}}</td>
-                <td>{{$pengajuan->id_akun}}</td>
+                <td>{{$pengajuan->name}}</td>
                 <td>{{$pengajuan->nama_pembuat_pengajuan}}</td>
 	              <td>{{$pengajuan->status_pengajuan}}</td>
 	              <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>

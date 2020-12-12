@@ -42,4 +42,4 @@ Route::get('/pengajuan/getJabatan/{id}', 'PengajuanController@getJabatan');
 // Route::get('/pengajuan/detail/{id}', 'PengajuanController@detailPengajuan');
 Route::get('/pengajuan/detail/{id}', array('as'=>'detailawal', 'uses'=>'PengajuanController@detailPengajuan'));
 Route::delete('/detailpengajuan/hapus/{Pengajuan}/{DetailPengajuan}', 'PengajuanController@hapusdetailPengajuan');
-Route::put('/detailpengajuan/edit/{Pengajuan}/{DetailPengajuan}','PengajuanController@editdetailPengajuan');
+Route::put('/detailpengajuan/edit/{Pengajuan}/{MappingDetailPengajuan}','PengajuanController@editdetailPengajuan');

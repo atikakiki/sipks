@@ -30,7 +30,7 @@ class PengajuanController extends Controller
         // $data['pengajuans'] = Pengajuan::get();
         $data['pengajuans'] = DB::table('Pengajuan')
                                         ->join('Sekolah', 'sekolah.id_sekolah', '=', 'pengajuan.id_sekolah')
-                                        // ->join('Users', 'Users.id_sekolah','=','pengajuan.id_sekolah')
+                                        ->join('Users', 'Users.id','=','pengajuan.id_akun')
                                         // ->where('users.id','=','pengajuan.id_akun')
                                         ->where('Pengajuan.id_sekolah','=', Auth::user()->id_sekolah)
                                         ->get();
