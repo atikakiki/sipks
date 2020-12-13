@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Pengajuan;
 use App\Models\DetailPengajuan;
+use App\Models\FotoWajah;
 
 class ApiController extends Controller
 {
@@ -102,12 +103,31 @@ class ApiController extends Controller
           
         }
 
-
         public function postPengajuan (Request $request){
           $data = Pengajuan::where('id_pengajuan',$request->id)->first();
           $data->status_pengajuan = '1';
           $data->save();
           return json_encode(['status'=>'OK']);
+        }
+
+        public function postWajah (Request $request){
+          $file = $request->file('photo');
+          $filename = $file->getClientOriginalName();
+          $path_file = 'fotowajah';
+          $data['fotowajah'] = FotoWajah::create([
+            'id_akun' => Auth::user()->id,
+            'name' => $filename,
+            'sample_wajah' => $file
+          ]);
+          $file->move($path_file,$filename);
+          $data['message'] = "Photo Stored";
+          return response()->json($data, 201);
+        }
+
+        public function show($filename){
+          $data = FotoWajah::where('name', $filename)->first();
+          $data->sample_wajah = base64_encode($data->sample_wajah);
+          return response()->json($data,200);
         }
 
 }
