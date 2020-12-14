@@ -6,6 +6,8 @@
 @endsection
 
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <section class="content-header">
   <h1><strong>
     Buat Pengajuan </strong>
@@ -61,14 +63,14 @@
                   <select class="form-control" onchange="return isi_jabatan();" name="nama_pembuat_pengajuan" id="nama_pembuat_pengajuan" required>
                     <option value="" selected>Pilih Nama</option>
                     @foreach($users as $key=>$user)
-                    <option value="{{$user->name}}">{{$user->name}}</option>
+                    <option value="{{$user->id}}">{{$user->name}}</option>
                     @endforeach
                   </select>
              </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <label>Jabatan Peminta</label>
                   <input type="text" class="form-control" name="jabatan_pembuat_pengajuan" id="jabatan_pembuat_pengajuan">
-                </div> -->
+                </div>
                 </div>
                 
               </div>
@@ -85,26 +87,64 @@
 
 @section('moreJS')
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
   <script type="text/javascript">
-  
-      function isi_jabatan(){
-      $('#nama_pembuat_jabatan').change(function(){
-        var url = "/pengajuan/getJabatan";
-        var id = document.getElementById('nama_pembuat_pengajuan').value();
-          if(id != '')
-            // alert(id);
-          {
-            $.ajax({
-              url:'{{url('/pengajuan/getJabatan')}}', 
-              method:"GET",
-              data:{id:id},
-              success:function(data){
-                // alert(data);
-                $('#jabatan_pembuat_pengajuan').val(data);
+  $.ajaxSetup({
+    headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $(document).ready(function () {
+      $('#nama_pembuat_pengajuan').on('change',function(e) {
+        var id_akun = e.target.value;
+          $.ajax({
+            url:"{{ route('pengajuan.getJabatan') }}",
+            type:"get",
+            data: {id: id_akun},
+                  success:function(response) {
+                  // console.log(Object.values(response));
+                  $('#jabatan_pembuat_pengajuan').val(Object.values(response));
+                  // $.each(data.subcategories[0].subcategories,function(index,subcategory){
+                  //   $('#subcategory').append('<option value="'+subcategory.id+'">'+subcategory.name+'</option>');
+                  // })
               }
           })
-        }
+      });
   });
+//   $(function () {
+//     $('#nama_pembuat_jabatan').on('change', function () {
+//         axios.post('{{ route('pengajuan.getJabatan') }}', {id: $(this).val()})
+//             .then(function (response) {
+//                 $('#jabatan_pembuat_pengajuan').empty();
+
+//                 $.each(response.data, function (nama_jabatan) {
+//                     $('#jabatan_pembuat_pengajuan').html(this.nama_jabatan);
+//                 })
+//             });
+//     });
+// });
+  //     function isi_jabatan(){
+  //       $.ajaxSetup({
+  //               headers: {
+  //                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //               }
+  //           });
+
+  //     $('#nama_pembuat_jabatan').change(function(){
+  //       // var url = "/pengajuan/getJabatan";
+  //       var id = document.getElementById('nama_pembuat_pengajuan').value();
+  //       console.log($id);
+  //         //   $.ajax({
+  //         //     url:'{{route('pengajuan.getJabatan')}}', 
+  //         //     method:"POST",
+  //         //     data:{id:id},
+  //         //     success:function(data){
+  //         //       // alert(data);
+  //         //       $('#jabatan_pembuat_pengajuan').val(data);
+  //         //     }
+  //         // })
+        
+  // });
   </script>
 @endsection

@@ -76,14 +76,14 @@ class PengajuanController extends Controller
              }
     }
 
-    public function getJabatan($id){
+    public function getJabatan(Request $request){
         // $id = $request->nama_pembuat_pengajuan;
         $jabatan = DB::table('users')->join('jabatan', function ($join)
         {
             $join->on('users.id_jabatan', '=', 'jabatan.id_jabatan');
-        })->where('users.id',$id)->select('jabatan.id_jabatan')->get();
+        })->where('users.id',$request->id)->select('jabatan.nama_jabatan')->get();
         // echo json_encode($jabatan);
-        return $jabatan;
+        return response()->json($jabatan);
         // dd($jabatan);
     }
 

@@ -73,8 +73,6 @@ class ApiController extends Controller
           return json_encode($data);
         }
 
-
-
         public function getpengajuan (Request $request){
 
           // $data['pengajuan'] = Auth::user();
@@ -98,7 +96,12 @@ class ApiController extends Controller
                       // ;
                   //      ->where('detail_pengajuan.id_pengajuan', $id);
                   // })->get();
-          $data['detailpeng'] = DB::select( DB::raw("SELECT * FROM detail_pengajuan dp JOIN pengajuan p ON dp.id_pengajuan=p.id_pengajuan where dp.id_pengajuan = '".$id."'") );
+          // $data['detailpeng'] = DB::select( DB::raw("SELECT * FROM detail_pengajuan dp JOIN pengajuan p ON dp.id_pengajuan=p.id_pengajuan where dp.id_pengajuan = '".$id."'") );
+            // $data['details'] = DetailPengajuan::get();
+            $data['detail_pengajuans'] = DB::table('mapping_pengajuan_detail')
+                                            ->join('detail_pengajuan', 'detail_pengajuan.id_detail', '=', 'mapping_pengajuan_detail.id_detail')
+                                            ->where('mapping_pengajuan_detail.id_pengajuan',$id)
+                                            ->get();
           return json_encode($data);
           
         }
@@ -126,7 +129,7 @@ class ApiController extends Controller
 
         public function show($filename){
           $data = FotoWajah::where('name', $filename)->first();
-          $data->sample_wajah = base64_encode($data->sample_wajah);
+          // $data->sample_wajah = base64_encode($data->sample_wajah);
           return response()->json($data,200);
         }
 

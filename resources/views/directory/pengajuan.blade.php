@@ -33,7 +33,7 @@
                 <th>Sekolah</th>
                 <th>Waktu Pengajuan</th>
                 <th>Judul</th>
-                <th>Deskripsi</th>
+                <!-- <th>Deskripsi</th> -->
                 <th>Jumlah</th>
                 <th>Nama Pembuat</th>
                 <th>Nama Peminta</th>
@@ -54,11 +54,18 @@
 	              <td>{{$pengajuan->nama_sekolah}}</td>
                 <td>{{$pengajuan->create_time_pengajuan}}</td>
 	              <td>{{$pengajuan->judul_pengajuan}}</td>
-	              <td>{{$pengajuan->deskripsi_pengajuan}}</td>
+	              <!-- <td>{{$pengajuan->deskripsi_pengajuan}}</td> -->
 	              <td>{{$pengajuan->jumlah_pengajuan}}</td>
                 <td>{{$pengajuan->name}}</td>
                 <td>{{$pengajuan->nama_pembuat_pengajuan}}</td>
-	              <td>{{$pengajuan->status_pengajuan}}</td>
+                  @if($pengajuan->status_pengajuan =='0')
+                    <td><label class="label bg-red">Belum Disetujui</label></td>
+                  @elseif($pengajuan->status_pengajuan =='1')
+                    <td><label class="label bg-yellow">Sudah Disetujui Bendahara</label></td>
+                  @elseif($pengajuan->status_pengajuan =='2')
+                    <td><label class="label bg-green">Sudah Disetujui Kepala Sekolah</label></td>
+                @endif
+	              <!-- <td>{{$pengajuan->status_pengajuan}}</td> -->
 	              <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>
 				  		<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit{{$pengajuan->id_pengajuan}}"><i class="fa fa-fw fa-pencil"></i></button>
               <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus{{$pengajuan->id_pengajuan}}"><i class="fa fa-fw fa-trash"></i></button>
