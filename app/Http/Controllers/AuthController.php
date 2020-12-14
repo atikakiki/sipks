@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Sekolah;
+use App\Models\Jabatan;
 
 
 class AuthController extends Controller
@@ -14,7 +16,10 @@ class AuthController extends Controller
     }
 
     public function registerIndex(){
-        return view('auth.register');
+      $data['sekolah'] = Sekolah::select('id_sekolah', 'nama_sekolah')->get();
+      $data['jabatan'] = Jabatan::select('id_jabatan', 'nama_jabatan')->where('nama_jabatan','LIKE','%tata usaha%')->get();
+      return view('auth.register', $data);
+      // dd($data);
     }
 
 
@@ -44,11 +49,13 @@ class AuthController extends Controller
             $newUser = new User();
             $newUser->NIP_akun = $request->nip;
             $newUser->name = $request->nama;
+            $newUser->id_sekolah = $request->sekolah;
             $newUser->alamat_akun = $request->alamat;
             $newUser->no_telp_akun = $request->telp;
             $newUser->email = $request->email;
-            $newUser->username_akun = $request->username;
+            // $newUser->username_akun = $request->username;
             $newUser->password = bcrypt($request->password);
+            $newUser->id_jabatan = $request->jabatan;
             $newUser->role_akun = 3;
 
             // if($request->file('img') != NULL){
@@ -58,6 +65,7 @@ class AuthController extends Controller
             // }
 
             $newUser->save();
+            // dd($newUser);
           } 
           catch (\Exception $e) {
             $newUser->delete();

@@ -40,6 +40,37 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for=sekolah" class="col-md-4 col-form-label text-md-right">{{ __('Sekolah') }}</label>
+
+                            <div class="col-md-6">
+                                <!-- <input id="sekolah" type="text" class="form-control" name="sekolah" value="" required> -->
+                                <select class="form-control" name="sekolah">
+                                <option value="">Pilih Sekolah</option>
+                                @foreach($sekolah as $key=>$sekolah)
+                                  <option value="{{$sekolah->id_sekolah}}">{{$sekolah->nama_sekolah}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="jabatan" class="col-md-4 col-form-label text-md-right">{{ __('Jabatan') }}</label>
+
+                            <div class="col-md-6">
+                                <!-- <input id="sekolah" type="text" class="form-control" name="sekolah" value="" required> -->
+                                <select class="form-control" name="jabatan">
+                                <option value="">Pilih Jabatan</option>
+                                @foreach($jabatan as $key=>$jabatan)
+                                  <option value="{{$jabatan->id_jabatan}}">{{$jabatan->nama_jabatan}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group row">
                             <label for="alamat" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
 
                             <div class="col-md-6">
@@ -62,20 +93,20 @@
                                 <input id="email" type="email" class="form-control" name="email" value="" required>
                             </div>
                         </div>
-
+<!-- 
                         <div class="form-group row">
                             <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
 
                             <div class="col-md-6">
                                 <input id="username" type="text" class="form-control" name="username" value="" required autofocus>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="text" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password" required>
                             </div>
                         </div>
 
