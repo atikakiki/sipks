@@ -316,7 +316,7 @@
 <script src="{{ url('assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ url('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> -->
-s<!-- <script>
+<!-- <script>
   $(function () {
     $('#example1').DataTable()
     $('#example2').DataTable({
@@ -334,6 +334,7 @@ s<!-- <script>
 $.noConflict();
 jQuery( document ).ready(function( $ ) {
     $('#example2').DataTable();
+    $('#example1').DataTable();
   // $(document).ready(function () {
     $('.sidebar-menu').tree();
     // $('#example2').DataTables();

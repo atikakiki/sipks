@@ -81,19 +81,18 @@
             </form>
 	    </div>
 	  </div>
-	</div>
+	
   </section>
 @endsection
 
 @section('moreJS')
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+
   <script type="text/javascript">
-  $.ajaxSetup({
-    headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
+    $.ajaxSetup({
+      headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
 
   $(document).ready(function () {
       $('#nama_pembuat_pengajuan').on('change',function(e) {
@@ -101,10 +100,13 @@
           $.ajax({
             url:"{{ route('pengajuan.getJabatan') }}",
             type:"get",
+            contentType: "application/json",
+            dataType: "json",
             data: {id: id_akun},
                   success:function(response) {
                   // console.log(Object.values(response));
-                  $('#jabatan_pembuat_pengajuan').val(Object.values(response));
+                  $('#jabatan_pembuat_pengajuan').val(JSON.stringify(response));
+                  // alert(JSON.stringify(response));
                   // $.each(data.subcategories[0].subcategories,function(index,subcategory){
                   //   $('#subcategory').append('<option value="'+subcategory.id+'">'+subcategory.name+'</option>');
                   // })
@@ -112,39 +114,5 @@
           })
       });
   });
-//   $(function () {
-//     $('#nama_pembuat_jabatan').on('change', function () {
-//         axios.post('{{ route('pengajuan.getJabatan') }}', {id: $(this).val()})
-//             .then(function (response) {
-//                 $('#jabatan_pembuat_pengajuan').empty();
-
-//                 $.each(response.data, function (nama_jabatan) {
-//                     $('#jabatan_pembuat_pengajuan').html(this.nama_jabatan);
-//                 })
-//             });
-//     });
-// });
-  //     function isi_jabatan(){
-  //       $.ajaxSetup({
-  //               headers: {
-  //                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  //               }
-  //           });
-
-  //     $('#nama_pembuat_jabatan').change(function(){
-  //       // var url = "/pengajuan/getJabatan";
-  //       var id = document.getElementById('nama_pembuat_pengajuan').value();
-  //       console.log($id);
-  //         //   $.ajax({
-  //         //     url:'{{route('pengajuan.getJabatan')}}', 
-  //         //     method:"POST",
-  //         //     data:{id:id},
-  //         //     success:function(data){
-  //         //       // alert(data);
-  //         //       $('#jabatan_pembuat_pengajuan').val(data);
-  //         //     }
-  //         // })
-        
-  // });
   </script>
 @endsection

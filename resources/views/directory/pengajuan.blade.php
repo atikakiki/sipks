@@ -61,9 +61,11 @@
                   @if($pengajuan->status_pengajuan =='0')
                     <td><label class="label bg-red">Belum Disetujui</label></td>
                   @elseif($pengajuan->status_pengajuan =='1')
-                    <td><label class="label bg-yellow">Sudah Disetujui Bendahara</label></td>
+                    <td><label class="label bg-yellow">Disetujui Bendahara</label></td>
                   @elseif($pengajuan->status_pengajuan =='2')
-                    <td><label class="label bg-green">Sudah Disetujui Kepala Sekolah</label></td>
+                    <td><label class="label bg-green">Disetujui Kepala Sekolah</label></td>
+                  @elseif($pengajuan->status_pengajuan =='3')
+                    <td><label class="label bg-black">Ditolak</label></td>
                 @endif
 	              <!-- <td>{{$pengajuan->status_pengajuan}}</td> -->
 	              <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Sekolah;
 use App\Models\User;
+use App\Models\Pengajuan;
 
 //ytambahan dari dinpen
 use File;
@@ -17,7 +18,21 @@ use Session;
 class DashboardController extends Controller
 {
     public function index(){
-    	return view('directory.dashboard');
+        $data['pengajuan_disetujui'] = DB::table('Pengajuan')
+                                        ->join('Users', 'Users.id','=','pengajuan.id_akun')
+                                        ->where('Pengajuan.id_sekolah','=', Auth::user()->id_sekolah)
+                                        ->where('Pengajuan.status_pengajuan','2')
+                                        ->get();
+        $data['pengajuan_ditolak'] = DB::table('Pengajuan')
+                                        ->join('Users', 'Users.id','=','pengajuan.id_akun')
+                                        ->where('Pengajuan.id_sekolah','=', Auth::user()->id_sekolah)
+                                        ->where('Pengajuan.status_pengajuan','3')
+                                        ->get();
+        $data['count'] = Sekolah::get()->count();
+        $data['belum_disetujui'] = Pengajuan::whereIn('status_pengajuan', [0,1])->get()->count();
+        $data['ditolak'] = Pengajuan::where('status_pengajuan', '3')->get()->count();
+        $data['selesai_disetujui'] = Pengajuan::where('status_pengajuan', '2')->get()->count();
+    	return view('directory.dashboard',$data);
     }
 
     public function allsekolah(){

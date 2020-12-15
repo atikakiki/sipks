@@ -77,48 +77,12 @@ class PengajuanController extends Controller
     }
 
     public function getJabatan(Request $request){
-        // $id = $request->nama_pembuat_pengajuan;
-        $jabatan = DB::table('users')->join('jabatan', function ($join)
-        {
-            $join->on('users.id_jabatan', '=', 'jabatan.id_jabatan');
-        })->where('users.id',$request->id)->select('jabatan.nama_jabatan')->get();
-        // echo json_encode($jabatan);
-        return response()->json($jabatan);
+        $data = Jabatan::join('users', 'jabatan.id_jabatan', '=', 'users.id_jabatan')
+                    ->where('users.id',$request->id)
+                    ->get('jabatan.nama_jabatan');
+        return response()->json($data);
         // dd($jabatan);
     }
-
-//     public function getDomains(Request $request)
-// {
-//     $state = $request->state;
-
-//     $domains = DB::table('domains')->where('state' ,'=', $state )->get();        
-
-//     $html = view('view_that_will_create_your_table_data', compact('domain'))->render();
-
-//     return  $html;
-// }
-//     public function postDetail(Request $request){
- 
-//         $id_pengajuan = Pengajuan::latest('id_pengajuan')->first()->id_pengajuan;
-//         $newDetail = new DetailPengajuan();
-//         $newDetail->id_pengajuan = $id_pengajuan;
-//         $newDetail->nama_detail = $request->nama_detail;
-//         $newDetail->jumlah_detail = $request->jumlah_detail;
-//         $newDetail->harga_satuan_detail = $request->harga_satuan_detail;
-//         $newDetail->total_harga_detail = $request->total_harga_detail;
-//         // dd($newDetail);
-//         // if($request->file('img') != NULL){
-//         //   $picture = $request->file('img');
-//         //   $newUser->picture = 'uploads/avatar/'.$newUser->username.'.'.$picture->getClientOriginalExtension();
-//         //   $picture->move('uploads/avatar/',$newUser->picture);
-//         // }
-         
-//         $newDetail->save();
-//       //   $data['id_pengajuan']=$newPengajuan->id_pengajuan;
-//       //   dd($newPengajuan->id_pengajuan);
-//       return redirect('/pengajuan');
-//             // return redirect('/pengajuan/tambahDetail', $data);
-// }
 
         public function postDetail(Request $request)
             {

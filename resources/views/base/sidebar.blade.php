@@ -15,9 +15,14 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
-          <a href="#">
+        <li>
+          <a href="{{ url('/dashboard')}}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+          </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-home"></i> <span>Data</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -32,22 +37,8 @@
         <li>
           <a href="{{ url('/pengajuan')}}">
             <i class="fa fa-book"></i> <span>Pengajuan Dana</span>
-<!--             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span> -->
           </a>
-<!--             <ul class="treeview-menu">
-              <li><a href="{{ url('/directory')}}"><i class="fa fa-circle-o"></i>Sekolah</a></li>
-              <li><a href="{{ url('/image_train/0')}}"><i class="fa fa-circle-o"></i>Kepala Sekolah</a></li>
-              <li><a href="{{ url('/image_train/2')}}"><i class="fa fa-circle-o"></i>Bendahara Sekolah</a></li>
-            </ul> -->
         </li>
-
-<!--         <li>
-          <a href="{{ url('/lihatprofil')}}">
-            <i class="fa fa-user"></i> <span>Profil</span>
-          </a>
-        </li> -->
 
         <li class="treeview">
           <a href="#">
