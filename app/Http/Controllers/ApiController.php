@@ -76,13 +76,68 @@ class ApiController extends Controller
         public function getpengajuan (Request $request){
 
           // $data['pengajuan'] = Auth::user();
+          if(Auth::user()->role_akun=='1')
+          {
+            // dd($request->status);
+            if($request->status=='0')
+            {
+                 $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
+                {
+                    $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
+                          ->where ('users.id', Auth::user()->id);
 
-         $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
-        {
-            $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
-                  ->where ('users.id', Auth::user()->id);
+                })->where('status_pengajuan','0')->orWhere('status_pengajuan','1')->get();
+            }
+            else if($request->status==3){
+               $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
+              {
+                  $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
+                        ->where ('users.id', Auth::user()->id);
 
-        })->where('status_pengajuan',$request->status)->get();
+              })->where('status_pengajuan','3')->get();
+
+            }
+            else{
+                   $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
+                  {
+                      $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
+                            ->where ('users.id', Auth::user()->id);
+
+                  })->where('status_pengajuan','2')->get();
+            }
+
+          }
+
+          else
+          {
+            if($request->status==0)
+            {
+                 $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
+                {
+                    $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
+                          ->where ('users.id', Auth::user()->id);
+
+                })->where('status_pengajuan',$request->status)->get();
+            }
+            else if($request->status==3)
+            {
+               $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
+              {
+                  $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
+                        ->where ('users.id', Auth::user()->id);
+
+              })->where('status_pengajuan','3')->get();
+            }
+            else{
+                   $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
+                  {
+                      $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
+                            ->where ('users.id', Auth::user()->id);
+
+                  })->where('status_pengajuan','1')->orWhere('status_pengajuan','2')->get();
+            }
+          }
+
 
            return json_encode($data);
         }
@@ -109,7 +164,7 @@ class ApiController extends Controller
 
         public function postPengajuan (Request $request){
           $data = Pengajuan::where('id_pengajuan',$request->id)->first();
-          $data->status_pengajuan = '1';
+          $data->status_pengajuan = $request->status;
           $data->save();
           return json_encode(['status'=>'OK']);
         }

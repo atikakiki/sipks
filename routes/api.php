@@ -30,3 +30,7 @@ Route::post('pengajuan/detail', 'ApiController@postPengajuan')->middleware('auth
 
 Route::post('postWajah', 'ApiController@postWajah')->middleware('auth:api');
 Route::get('show/{filename}','ApiController@show')->middleware('auth:api');
+
+Route::post('trainsignature','SignatureController@trainSignature')->middleware('auth:api');
+Route::post('sendsignature','SignatureController@sendSignature')->middleware('auth:api');
+Route::post('predictsignature','SignatureController@predictSignature')->middleware('auth:api');
