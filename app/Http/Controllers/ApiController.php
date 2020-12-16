@@ -98,7 +98,8 @@ class ApiController extends Controller
                   // })->get();
           // $data['detailpeng'] = DB::select( DB::raw("SELECT * FROM detail_pengajuan dp JOIN pengajuan p ON dp.id_pengajuan=p.id_pengajuan where dp.id_pengajuan = '".$id."'") );
             // $data['details'] = DetailPengajuan::get();
-            $data['detail_pengajuans'] = DB::table('mapping_pengajuan_detail')
+            $data['detail_pengajuans'] = DB::table('Pengajuan')
+                                            ->join('mapping_pengajuan_detail','pengajuan.id_pengajuan','=', 'mapping_pengajuan_detail.id_pengajuan')
                                             ->join('detail_pengajuan', 'detail_pengajuan.id_detail', '=', 'mapping_pengajuan_detail.id_detail')
                                             ->where('mapping_pengajuan_detail.id_pengajuan',$id)
                                             ->get();
