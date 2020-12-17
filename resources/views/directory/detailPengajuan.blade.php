@@ -24,8 +24,12 @@
 	    <div class="panel panel-warning">  
         <div class="box-body" style="overflow-y:scroll">
           <div class = "page-header">
-            <h3> Judul pengajuan </h3>
-       </div>
+          @foreach ($judul as $key => $j)
+            <h3> {{$j->judul_pengajuan}} </h3>
+               <button onclick="location.href='{{ route('tambahDetail',[$j->id_pengajuan])}}'" type="button" class = "btn btn-danger"><i class = "fa fa-plus"></i> Tambah Detail Pengajuan</button>
+              @endforeach
+          </div>
+       
 	        <table id="example2" class="table table-striped table-bordered bg-info table-hover text-center">
 	          <thead>
 	            <tr>
@@ -51,8 +55,8 @@
 	              <td>{{$dp->harga_satuan}}</td>
 	              <td>{{$dp->sub_total}}</td>
                 <td>
-              <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit{{$dp->id_detail}}"><i class="fa fa-fw fa-pencil"></i></button>
-              <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus{{$dp->id_detail}}"><i class="fa fa-fw fa-trash"></i></button>
+              <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit{{$dp->id_mapping_pengajuan_detail}}"><i class="fa fa-fw fa-pencil"></i></button>
+              <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus{{$dp->id_mapping_pengajuan_detail}}"><i class="fa fa-fw fa-trash"></i></button>
                   </td>
 	            </tr>
 

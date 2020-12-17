@@ -6,6 +6,7 @@
 @endsection
 
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <section class="content-header">
   <h1><strong>
     Tambah Detail Pengajuan </strong>
@@ -62,13 +63,37 @@
 $(document).ready(function(){
     var count = 1;
     detail_field(count);
+    $('#id_detail').on('change',function(e) {
+        var id_detail = e.target.value;
+          $.ajax({
+            url:"{{ route('pengajuan.getHargaSatuan') }}",
+            type:"get",
+            contentType: "application/json",
+            dataType: "json",
+            data: {id_detail: id_detail},
+                  success:function(response) {
+                  // console.log(Object.values(response));
+                    // var resp = JSON.stringify(response);
+                    // // var tes = preg_replace("/[^a-zA-Z0-9]/", "", resp)
+                    // var res = resp.split(":");
+                    // var r = res[1];
+                    // var ok = preg_replace("/[^a-zA-Z]/", "", r);
+                    alert(response);
+                //   $('#jabatan_pembuat_pengajuan').val(response);
+                  // alert(JSON.stringify(response));
+                  // $.each(data.subcategories[0].subcategories,function(index,subcategory){
+                  //   $('#subcategory').append('<option value="'+subcategory.id+'">'+subcategory.name+'</option>');
+                  // })
+              }
+          })
+      });
 
     function detail_field(number)
     {
         html = '<tr>';
         html += '<td><select class="form-control" name="id_detail[]"><option value="">Pilih Detail</option>@foreach($details as $key=>$detail)<option value="{{$detail->id_detail}}">{{$detail->nama_detail}}</option>@endforeach</select></td>';
         html += '<td><input type="number" name="jumlah_detail[]" class="form-control" /></td>';
-        html += '<td><input type="text" name="harga_satuan_detail[]" class="form-control" /></td>';
+        html += '<td><input type="text" disabled name="harga_satuan_detail[]" class="form-control" /></td>';
         html += '<td><input type="number" name="sub_total[]" class="form-control" /></td>';
         if(number > 1)
         {
