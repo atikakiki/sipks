@@ -80,7 +80,26 @@ class PengajuanController extends Controller
         $data = Jabatan::join('users', 'jabatan.id_jabatan', '=', 'users.id_jabatan')
                     ->where('users.id',$request->id)
                     ->get('jabatan.nama_jabatan');
-        return response()->json($data);
+        $resp= explode(":",$data);
+        $re=$resp[1];
+        $res=substr($re, 1, -3);
+        // $res= preg_replace("/[^a-zA-Z]/", "", $re);
+                    // var r = res[1];
+                    // var ok = preg_replace("/[^a-zA-Z]/", "", r);
+        return response()->json($res);
+        // dd($jabatan);
+    }
+
+    public function getHargaSatuan(Request $request){
+        $data = DetailPengajuan::where('id_detail',$request->id_detail)
+                    ->get('harga_satuan');
+        $resp= explode(":",$data);
+        $re=$resp[1];
+        $res=substr($re, 0, -2);
+        // $res= preg_replace("/[^a-zA-Z]/", "", $re);
+                    // var r = res[1];
+                    // var ok = preg_replace("/[^a-zA-Z]/", "", r);
+        return response()->json($res);
         // dd($jabatan);
     }
 
@@ -154,10 +173,15 @@ class PengajuanController extends Controller
 
     public function detailPengajuan($id){
         $data['details'] = DetailPengajuan::get();
-         $data['detail_pengajuans'] = DB::table('mapping_pengajuan_detail')
-                                        ->join('detail_pengajuan', 'detail_pengajuan.id_detail', '=', 'mapping_pengajuan_detail.id_detail')
-                                        ->where('mapping_pengajuan_detail.id_pengajuan',$id)
-                                        ->get();
+        $data['judul']= Pengajuan::where('id_pengajuan',$id)->select('id_pengajuan','judul_pengajuan')->get();
+        // $resp= explode(":",$judul);
+        // $re=$resp[1];
+        // $data['judul_pengajuan']=substr($re, 1, -3);
+        $data['detail_pengajuans'] = DB::table('Pengajuan')
+                                    ->join('mapping_pengajuan_detail','pengajuan.id_pengajuan','=', 'mapping_pengajuan_detail.id_pengajuan')
+                                    ->join('detail_pengajuan', 'detail_pengajuan.id_detail', '=', 'mapping_pengajuan_detail.id_detail')
+                                    ->where('mapping_pengajuan_detail.id_pengajuan',$id)
+                                    ->get();
         //  dd($data);
          return view('directory.detailPengajuan', $data);
     }

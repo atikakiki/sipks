@@ -38,6 +38,7 @@ Route::put('/pengajuan/edit/{Pengajuan}', 'PengajuanController@editPengajuan');
 Route::post('/pengajuan/cekjudul/{judul}', 'PengajuanController@cekjudul');
 // Route::get('/pengajuan/getJabatan/{id}', 'PengajuanController@getJabatan');
 Route::get('/pengajuan/getJabatan', 'PengajuanController@getJabatan')->name('pengajuan.getJabatan');
+Route::get('/pengajuan/getHargaSatuan', 'PengajuanController@getHargaSatuan')->name('pengajuan.getHargaSatuan');
 
 // Route::get('/pengajuan/detail/{id}', 'PengajuanController@detailPengajuan');
 Route::get('/pengajuan/detail/{id}', array('as'=>'detailawal', 'uses'=>'PengajuanController@detailPengajuan'));

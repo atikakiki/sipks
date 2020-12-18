@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group">
                   <label>Nama Peminta</label>
-                  <select class="form-control" onchange="return isi_jabatan();" name="nama_pembuat_pengajuan" id="nama_pembuat_pengajuan" required>
+                  <select class="form-control"  name="nama_pembuat_pengajuan" id="nama_pembuat_pengajuan" required>
                     <option value="" selected>Pilih Nama</option>
                     @foreach($users as $key=>$user)
                     <option value="{{$user->id}}">{{$user->name}}</option>
@@ -69,7 +69,7 @@
              </div>
                 <div class="form-group">
                   <label>Jabatan Peminta</label>
-                  <input type="text" class="form-control" name="jabatan_pembuat_pengajuan" id="jabatan_pembuat_pengajuan">
+                  <input type="text" disabled class="form-control" name="jabatan_pembuat_pengajuan" id="jabatan_pembuat_pengajuan">
                 </div>
                 </div>
                 
@@ -105,7 +105,13 @@
             data: {id: id_akun},
                   success:function(response) {
                   // console.log(Object.values(response));
-                  $('#jabatan_pembuat_pengajuan').val(JSON.stringify(response));
+                    // var resp = JSON.stringify(response);
+                    // // var tes = preg_replace("/[^a-zA-Z0-9]/", "", resp)
+                    // var res = resp.split(":");
+                    // var r = res[1];
+                    // var ok = preg_replace("/[^a-zA-Z]/", "", r);
+                    // alert(response);
+                  $('#jabatan_pembuat_pengajuan').val(response);
                   // alert(JSON.stringify(response));
                   // $.each(data.subcategories[0].subcategories,function(index,subcategory){
                   //   $('#subcategory').append('<option value="'+subcategory.id+'">'+subcategory.name+'</option>');
