@@ -90,8 +90,9 @@ class PengajuanController extends Controller
         // dd($jabatan);
     }
 
-    public function getHargaSatuan(Request $request){
+    public function getDetail(Request $request){
         $data = DetailPengajuan::where('id_detail',$request->id_detail)
+                    // ->select('id_detail','nama_detail','harga_satuan')
                     ->get('harga_satuan');
         $resp= explode(":",$data);
         $re=$resp[1];
@@ -99,7 +100,8 @@ class PengajuanController extends Controller
         // $res= preg_replace("/[^a-zA-Z]/", "", $re);
                     // var r = res[1];
                     // var ok = preg_replace("/[^a-zA-Z]/", "", r);
-        return response()->json($res);
+                    $jsonResponse=json_encode($res);
+                    return $jsonResponse;
         // dd($jabatan);
     }
 
