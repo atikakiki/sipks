@@ -34,7 +34,10 @@
                         </thead>
                         <tbody>
                             <tr>
-                            <td><select class="form-control" id="id_detail_post">
+                            
+                        <input type="hidden" name="id_pengajuan" id="id_pengajuan" value = "{{$id_pengajuan}}" ></input>
+                            
+                            <td><select class="form-control" id="id_detail_post" required>
                                 <option value="">Pilih Detail</option>
                                 @foreach($details as $key=>$detail)
                                 <option value="{{$detail->id_detail}}">{{$detail->nama_detail}}</option>
@@ -42,7 +45,7 @@
                                 </select>
                             </td> 
                             <td>
-                                <input type="number" id="jumlah_detail_post"></input>
+                                <input type="number" id="jumlah_detail_post" required></input>
                             </td>
                             <td>
                                 <button type="button" onclick="coba();" name="add" id="add" class="btn btn-success">Tambah</button>
@@ -53,7 +56,7 @@
                         </table>
                         </div>
                     <div class="box-body">
-                        <form >
+                        
                             <table class="table table-bordered" name="detail_form" id="detail_form">
                             <h3>
                             <thead>
@@ -66,18 +69,17 @@
                         </tr>
                         </thead>
                         <tbody class="detail">
-                           
                         </tbody>
                         <tfoot>
                         <tr>
                             <td>
                             @csrf
-                                <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
+                                <input type="submit" onclick="postDetail();" name="save" id="save" class="btn btn-primary" value="Save" />
                             </td>
                             </tr>
                         </tfoot>
                     </table>
-                </form>
+              
                 </div>
      </div>
    </div>
@@ -91,12 +93,14 @@
 //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 //       }
 //     });
+// var id = document.getElementById("id_pengajuan").value;
+var arr_input=[];
+// arr_input.push(id);
 
 function coba(){
         var id_detail = document.getElementById("id_detail_post").value;
         var jumlah_detail = document.getElementById("jumlah_detail_post").value;
-        // var nama = document.getElementById("id_detail_post").innerHTML.value;
-        var b = "lolo";
+  
         $.ajax({
             url:"{{ route('pengajuan.getDetail') }}",
             type:"get",
@@ -105,17 +109,9 @@ function coba(){
             dataType: "json",
             data: {id_detail: id_detail},
                   success:function(data) {
-                    //   if(data && data.length > 0){
-                    //     // for(key in data){
-                    //     //  var tmp =data[key];
-                    //     //  console.log(tmp.nama_detail);
-                    //     // }
-                    //     data=$.parseJSON( data ); //parse response string
-                    //     b=data.harga_satuan;//value of b
-                    //     // content1=data.harga_satuan;
-                    //     console.log(b);
-                    //   }
                     var subtotal = jumlah_detail * data;
+                    arr_input.push(id_detail,jumlah_detail,subtotal);
+                    console.log(arr_input);
                     html = '<tr>';
                     html += '<td name="id_detail[]">';
                     html += id_detail;
@@ -129,115 +125,39 @@ function coba(){
                     $('tbody.detail').append(html);
                     $('#id_detail_post').val("");
                     $('#jumlah_detail_post').val("");
-
-                      
-                    
-                    // data.forEach(function(item){
-                    // console.log(JSON.stringify(response));
-                    // var l = JSON.stringify(response);
-                    // var t = replace("[{]}]", "", l);
-                //   $('#jabatan_pembuat_pengajuan').val(response);
-                    // alert(b);
-                  // $.each(data.subcategories[0].subcategories,function(index,subcategory){
-                  //   $('#subcategory').append('<option value="'+subcategory.id+'">'+subcategory.name+'</option>');
-                  
               }
           });
-        // var jumlah_detail = document.getElementById("jumlah_detail_post").value;
-        // html = '<tr>';
-        // html += '<td name="id_detail[]">';
-        // html += id_detail;
-        // html += '</td><td name="jumlah_detail[]">';
-        // html += jumlah_detail;
-        // html += '</td><td name="harga_satuan_detail[]">';
-        // html += b;
-        // html += '</td><td><input type="number" name="sub_total[]" class="form-control" /></td>';
-        // html += '<td><button type="button" name="remove" onclick="hapus(this);" id="" class="btn btn-danger remove">Hapus</button></td></tr>';
-        // $('tbody.detail').append(html);
-        // $('#id_detail_post').val("");
-        // $('#jumlah_detail_post').val("");
 
- 
-
-        // alert(id);
     }
 
     function hapus(row){
-        var d = row.parentNode.parentNode.rowIndex;
+      var d = row.parentNode.parentNode.rowIndex;
       document.getElementById('detail_form').deleteRow(d);
+      arr_input.splice(d-1,3)
+    //   arrayRemove(arr_id_detail, d-1);
+      console.log(arr_input);
+        // console.log(d-1);
     }
-$(document).ready(function(){
-    
-    // var count = 1;
-    // detail_field(count);
-    
-    // function detail_field(number)
-    // {
-    //     html = '<tr>';
-    //     html += '<td><select class="form-control" name="id_detail[]"><option value="">Pilih Detail</option>@foreach($details as $key=>$detail)<option value="{{$detail->id_detail}}">{{$detail->nama_detail}}</option>@endforeach</select></td>';
-    //     html += '<td><input type="number" name="jumlah_detail[]" class="form-control" /></td>';
-    //     html += '<td><input type="text" disabled name="harga_satuan_detail[]" class="form-control" /></td>';
-    //     html += '<td><input type="number" name="sub_total[]" class="form-control" /></td>';
-    //     if(number > 1)
-    //     {
-    //         html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">Hapus</button></td></tr>';
-    //         $('tbody').append(html);
-    //     }
-    //     else
-    //     {   
-    //         html += '<td><button type="button" name="add" id="add" class="btn btn-success">Tambah</button></td></tr>';
-    //         $('tbody').html(html);
-    //     }
-    // }
 
-// $(document).on('click', '#add', function(){
-//     $('#id_detail_post').on('change',function(e) {
-// //  count++;
-// //  detail_field(count);
-// var id = e.target.value;
-// alert(id);
-//     });
-// });
+    function postDetail(){
+        // console.log('postDetail');
+        var id = document.getElementById("id_pengajuan").value;
+        // arr_input.push(id);
+        var arr_str = JSON.stringify(arr_input);
+        // var input = join(id,arr_str);
+        console.log(arr_str);
+        $.ajax({
+            url:"{{ route('pengajuan.postDetail') }}",
+            type:"post",
+            contentType: "application/json",
+            async : "false",
+            dataType: "text",
+            data: { id_pengajuan: id, arr: arr_input },
+                  success:function(data) {
+                    
+              }
+          });
+    }
 
-// $(document).on('click', '#remove', function(){
-
-//  $(this).closest("tr").remove();
-// });
-
-$('#detail_form').on('submit', function(event){
-    //    event.preventDefault();
-       $.ajax({
-           url:'{{ route("detail-field.insert") }}',
-           method:'post',
-           data:$(this).serialize(),
-           dataType:'json',
-           beforeSend:function(){
-               $('#save').attr('disabled','disabled');
-           },
-           success: function(response) {
-            window.location.replace('{{ url('/pengajuan') }}');
-             }
-        //    success:function(data)
-        //    {
-        //        if(data.error)
-        //        {
-        //            var error_html = '';
-        //            for(var count = 0; count < data.error.length; count++)
-        //            {
-        //                error_html += '<p>'+data.error[count]+'</p>';
-        //            }
-        //            $('#result').html('<div class="alert alert-danger">'+error_html+'</div>');
-        //        }
-        //        else
-        //        {
-        //            detail_field(1);
-        //            $('#result').html('<div class="alert alert-success">'+data.success+'</div>');
-        //        }
-        //        $('#save').attr('disabled', false);
-        //    }
-       })
-});
-
-});
 </script>
 @endsection

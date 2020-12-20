@@ -105,48 +105,61 @@ class PengajuanController extends Controller
         // dd($jabatan);
     }
 
-        public function postDetail(Request $request)
-            {
-                $id_pengajuan = Pengajuan::latest('id_pengajuan')->first()->id_pengajuan;
+        // public function postDetail(Request $request)
+        //     {
+        //         // echo"postDetail";
+        //         $id_pengajuan = $request->id_pengajuan;
+        //         // echo($id_pengajuan);
+        //         // if($request->ajax())
+        //         // {
+        //         // $rules = array(
+        //         // 'id_detail.*'  => 'required',
+        //         // 'jumlah_detail.*'  => 'required',
+        //         // 'sub_total.*'  => 'required'
+        //         // );
+        //         // $error = Validator::make($request->all(), $rules);
+        //         // if($error->fails())
+        //         // {
+        //         // return response()->json([
+        //         //     'error'  => $error->errors()->all()
+        //         // ]);
+        //         // }
+        //         $id_detail = $request->id_detail;
+        //         $jumlah_detail = $request->jumlah_detail;
+        //         $sub_total = $request->sub_total;
+        //         dd($id_pengajuan,$id_detail,$jumlah_detail,$sub_total);
+        //         // for($count = 0; $count < count($id_detail); $count++)
+        //         // {
+        //         // $data = array(
+        //         //     'id_pengajuan'=>$id_pengajuan,
+        //         //     'id_detail' => $id_detail[$count],
+        //         //     'jumlah_detail'  => $jumlah_detail[$count],
+        //         //     'sub_total' => $sub_total[$count]
+        //         // );
+        //         // $insert_data[] = $data; 
+        //         // }
+        //         // dd($insert_data);
 
-                if($request->ajax())
-                {
-                $rules = array(
-                'id_detail.*'  => 'required',
-                'jumlah_detail.*'  => 'required',
-                'sub_total.*'  => 'required'
-                );
-                $error = Validator::make($request->all(), $rules);
-                if($error->fails())
-                {
-                return response()->json([
-                    'error'  => $error->errors()->all()
-                ]);
-                }
-                $id_detail = $request->id_detail;
-                $jumlah_detail = $request->jumlah_detail;
-                $sub_total = $request->sub_total;
-                for($count = 0; $count < count($id_detail); $count++)
-                {
-                $data = array(
-                    'id_pengajuan'=>$id_pengajuan,
-                    'id_detail' => $id_detail[$count],
-                    'jumlah_detail'  => $jumlah_detail[$count],
-                    'sub_total' => $sub_total[$count]
-                );
-                $insert_data[] = $data; 
-                }
+        //         // MappingDetailPengajuan::insert($insert_data);
+        //         // return redirect('/pengajuan');
+        //         // return response()->json([
+        //         // 'success'  => 'Data Added successfully.'
+        //         // ]);
+        //         // }
+        //     }
 
-                MappingDetailPengajuan::insert($insert_data);
-                // return redirect('/pengajuan');
-                return response()->json([
-                'success'  => 'Data Added successfully.'
-                ]);
-                }
-            }
+        public function postDetail(Request $request){
+            $input = $request->arr;    
+            // $lol = explode(",",$input);
+            // $id_pengajuan=substr($lol[count($lol)-1],1,-2);
+            $id_pengajuan = $request->id;
+            dd($input,$id_pengajuan);
+            // return $arr_input;
+        }
 
-    public function tambahDetailPengajuan(){
+    public function tambahDetailPengajuan($id){
         $data['details'] = DetailPengajuan::get();
+        $data['id_pengajuan'] = $id;
         // dd($data);
     	return view('directory.buatDetailPengajuan',$data);
     }
