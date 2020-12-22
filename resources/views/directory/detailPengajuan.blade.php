@@ -26,8 +26,10 @@
           <div class = "page-header">
           @foreach ($judul as $key => $j)
             <h3> {{$j->judul_pengajuan}} </h3>
-               <button onclick="location.href='{{ route('tambahDetail',[$j->id_pengajuan])}}'" type="button" class = "btn btn-danger"><i class = "fa fa-plus"></i> Tambah Detail Pengajuan</button>
-              @endforeach
+            <h5> Deskripsi : <br> {{$j->deskripsi_pengajuan}}</h5>
+            @if($j->status_pengajuan =='0')
+            <button onclick="location.href='{{ route('tambahDetail',[$j->id_pengajuan])}}'" type="button" class = "btn btn-danger"><i class = "fa fa-plus"></i> Tambah Detail Pengajuan</button>
+              @endif
           </div>
        
 	        <table id="example2" class="table table-striped table-bordered bg-info table-hover text-center">
@@ -54,10 +56,12 @@
 	              <td>{{$dp->jumlah_detail}}</td>
 	              <td>{{$dp->harga_satuan}}</td>
 	              <td>{{$dp->sub_total}}</td>
+                @if($j->status_pengajuan =='0')
                 <td>
               <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit{{$dp->id_mapping_pengajuan_detail}}"><i class="fa fa-fw fa-pencil"></i></button>
               <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus{{$dp->id_mapping_pengajuan_detail}}"><i class="fa fa-fw fa-trash"></i></button>
                   </td>
+                  @endif
 	            </tr>
 
               <div class="modal modal-danger fade" id="modal-hapus{{$dp->id_mapping_pengajuan_detail}}" style="display: none;">
@@ -139,7 +143,14 @@
               @endforeach
 
 	          </tbody>
-	        </table>
+            <tfoot>
+            <tr>
+                <th colspan="4">Nominal Pengajuan</th>
+                <th>{{$j->jumlah_pengajuan}}</th>
+	            </tr>
+            </tfoot>
+            @endforeach
+          </table>
 	      </div>
 
 	    </div>

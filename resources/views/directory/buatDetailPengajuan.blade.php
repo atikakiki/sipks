@@ -143,18 +143,19 @@ function coba(){
         // console.log('postDetail');
         var id = document.getElementById("id_pengajuan").value;
         // arr_input.push(id);
-        var arr_str = JSON.stringify(arr_input);
+        // var arr_str = JSON.stringify(arr_input);
         // var input = join(id,arr_str);
-        console.log(arr_str);
+        console.log(arr_input);
         $.ajax({
-            url:"{{ route('pengajuan.postDetail') }}",
-            type:"post",
-            contentType: "application/json",
-            async : "false",
-            dataType: "text",
+            url:'{{ route('pengajuan.postDetail') }}',
+            type:'post',
+            // contentType: 'application/json',
+            async : 'false',
+            // dataType: 'json',
             data: { id_pengajuan: id, arr: arr_input },
                   success:function(data) {
-                    
+                    window.location ='{{ route('pengajuan') }}';
+                    // console.log(data);
               }
           });
     }

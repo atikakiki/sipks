@@ -27,20 +27,20 @@ Route::get('/allbendahara', 'DashboardController@allbendahara')->middleware('cek
 
 Route::get('/lihatprofil', 'ProfilController@lihatprofil')->middleware('cekstatus');
 
-Route::get('/pengajuan', 'PengajuanController@awal');
-Route::get('/pengajuan/tambah', 'PengajuanController@buatPengajuan');
-Route::get('/pengajuan/tambahDetail/{id}', array('as'=>'tambahDetail', 'uses'=>'PengajuanController@tambahDetailPengajuan'));
-Route::post('/pengajuan/postPengajuan', 'PengajuanController@postPengajuan');
-Route::post('/pengajuan/postDetail', 'PengajuanController@postDetail')->name('pengajuan.postDetail');
+Route::get('/pengajuan', 'PengajuanController@awal')->name('pengajuan')->middleware('cekstatus');
+Route::get('/pengajuan/tambah', 'PengajuanController@buatPengajuan')->middleware('cekstatus');
+Route::get('/pengajuan/tambahDetail/{id}', array('as'=>'tambahDetail', 'uses'=>'PengajuanController@tambahDetailPengajuan'))->middleware('cekstatus');
+Route::post('/pengajuan/postPengajuan', 'PengajuanController@postPengajuan')->middleware('cekstatus');
+Route::post('/pengajuan/postDetail', 'PengajuanController@postDetail')->name('pengajuan.postDetail')->middleware('cekstatus');
 // Route::get('/pengajuan/download_template', 'PengajuanController@downloadCoursesTemplate');
-Route::delete('/pengajuan/hapus/{Pengajuan}', 'PengajuanController@hapusPengajuan');
-Route::put('/pengajuan/edit/{Pengajuan}', 'PengajuanController@editPengajuan');
-Route::post('/pengajuan/cekjudul/{judul}', 'PengajuanController@cekjudul');
+Route::delete('/pengajuan/hapus/{Pengajuan}', 'PengajuanController@hapusPengajuan')->middleware('cekstatus');
+Route::put('/pengajuan/edit/{Pengajuan}', 'PengajuanController@editPengajuan')->middleware('cekstatus');
+Route::post('/pengajuan/cekjudul/{judul}', 'PengajuanController@cekjudul')->middleware('cekstatus');
 // Route::get('/pengajuan/getJabatan/{id}', 'PengajuanController@getJabatan');
-Route::get('/pengajuan/getJabatan', 'PengajuanController@getJabatan')->name('pengajuan.getJabatan');
-Route::get('/pengajuan/getDetail', 'PengajuanController@getDetail')->name('pengajuan.getDetail');
+Route::get('/pengajuan/getJabatan', 'PengajuanController@getJabatan')->name('pengajuan.getJabatan')->middleware('cekstatus');
+Route::get('/pengajuan/getDetail', 'PengajuanController@getDetail')->name('pengajuan.getDetail')->middleware('cekstatus');
 
 // Route::get('/pengajuan/detail/{id}', 'PengajuanController@detailPengajuan');
-Route::get('/pengajuan/detail/{id}', array('as'=>'detailawal', 'uses'=>'PengajuanController@detailPengajuan'));
-Route::delete('/detailpengajuan/hapus/{Pengajuan}/{DetailPengajuan}', 'PengajuanController@hapusdetailPengajuan');
-Route::put('/detailpengajuan/edit/{Pengajuan}/{MappingDetailPengajuan}','PengajuanController@editdetailPengajuan');
+Route::get('/pengajuan/detail/{id}', array('as'=>'detailawal', 'uses'=>'PengajuanController@detailPengajuan'))->middleware('cekstatus');
+Route::delete('/detailpengajuan/hapus/{Pengajuan}/{DetailPengajuan}', 'PengajuanController@hapusdetailPengajuan')->middleware('cekstatus');
+Route::put('/detailpengajuan/edit/{Pengajuan}/{MappingDetailPengajuan}','PengajuanController@editdetailPengajuan')->middleware('cekstatus');

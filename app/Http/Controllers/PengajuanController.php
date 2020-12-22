@@ -58,7 +58,7 @@ class PengajuanController extends Controller
               $newPengajuan->id_akun = Auth::user()->id;
               $newPengajuan->judul_pengajuan = $request->judul_pengajuan;
               $newPengajuan->deskripsi_pengajuan = $request->deskripsi_pengajuan;
-              $newPengajuan->jumlah_pengajuan = $request->jumlah_pengajuan  ;
+              $newPengajuan->jumlah_pengajuan = 0  ;
               $newPengajuan->nama_pembuat_pengajuan = $request->nama_pembuat_pengajuan;
               $newPengajuan->status_pengajuan = 0;
               // if($request->file('img') != NULL){
@@ -105,56 +105,40 @@ class PengajuanController extends Controller
         // dd($jabatan);
     }
 
-        // public function postDetail(Request $request)
-        //     {
-        //         // echo"postDetail";
-        //         $id_pengajuan = $request->id_pengajuan;
-        //         // echo($id_pengajuan);
-        //         // if($request->ajax())
-        //         // {
-        //         // $rules = array(
-        //         // 'id_detail.*'  => 'required',
-        //         // 'jumlah_detail.*'  => 'required',
-        //         // 'sub_total.*'  => 'required'
-        //         // );
-        //         // $error = Validator::make($request->all(), $rules);
-        //         // if($error->fails())
-        //         // {
-        //         // return response()->json([
-        //         //     'error'  => $error->errors()->all()
-        //         // ]);
-        //         // }
-        //         $id_detail = $request->id_detail;
-        //         $jumlah_detail = $request->jumlah_detail;
-        //         $sub_total = $request->sub_total;
-        //         dd($id_pengajuan,$id_detail,$jumlah_detail,$sub_total);
-        //         // for($count = 0; $count < count($id_detail); $count++)
-        //         // {
-        //         // $data = array(
-        //         //     'id_pengajuan'=>$id_pengajuan,
-        //         //     'id_detail' => $id_detail[$count],
-        //         //     'jumlah_detail'  => $jumlah_detail[$count],
-        //         //     'sub_total' => $sub_total[$count]
-        //         // );
-        //         // $insert_data[] = $data; 
-        //         // }
-        //         // dd($insert_data);
-
-        //         // MappingDetailPengajuan::insert($insert_data);
-        //         // return redirect('/pengajuan');
-        //         // return response()->json([
-        //         // 'success'  => 'Data Added successfully.'
-        //         // ]);
-        //         // }
-        //     }
-
         public function postDetail(Request $request){
-            $input = $request->arr;    
-            // $lol = explode(",",$input);
-            // $id_pengajuan=substr($lol[count($lol)-1],1,-2);
-            $id_pengajuan = $request->id;
-            dd($input,$id_pengajuan);
-            // return $arr_input;
+            $id = $request->id_pengajuan;
+            $arr = $request->arr;
+            $val = [];
+            $sql = [];
+            $jumlah = 0;
+             $arr_split = array_chunk($arr,3);
+            // dd(count($arr_split));
+            for($i=0;$i<count($arr_split);$i++){
+                array_unshift($arr_split[$i], $id);
+                // dd($arr_split[$i]);
+                $detail = new MappingDetailPengajuan();
+                $detail->id_pengajuan = $arr_split[$i][0];
+                $detail->id_detail = $arr_split[$i][1];
+                $detail->jumlah_detail = $arr_split[$i][2];
+                $detail->sub_total = $arr_split[$i][3];
+                
+                $detail->save();
+                $jumlah+=$detail->sub_total;
+                // $i++;
+                // $val[$i] ="(".implode(",",$arr_split[$i]).")";
+                // $sql[$i] = "'".$str.$val[$i].";"."'";
+            }
+            
+            // dd($jumlah);
+            $pengajuan = Pengajuan::find($id);
+
+            // Make sure you've got the Page model
+            if($pengajuan) {
+                // $jml = $pengajuan->jumlah;
+                $pengajuan->jumlah_pengajuan += $jumlah;
+                $pengajuan->save();
+            }
+            return response()->json('berhasil tambah detail');
         }
 
     public function tambahDetailPengajuan($id){
@@ -178,8 +162,8 @@ class PengajuanController extends Controller
         // $updatePengajuan->id_akun = Auth::user()->id;
         $updatePengajuan->judul_pengajuan = $request->judul_pengajuan;
         $updatePengajuan->deskripsi_pengajuan = $request->deskripsi_pengajuan;
-        $updatePengajuan->jumlah_pengajuan = $request->jumlah_pengajuan;
-        $updatePengajuan->nama_pembuat_pengajuan = $request->nama_pembuat_pengajuan;
+        // $updatePengajuan->jumlah_pengajuan = $request->jumlah_pengajuan;
+        // $updatePengajuan->nama_pembuat_pengajuan = $request->nama_pembuat_pengajuan;
         // $updatePengajuan->status_pengajuan = $request->status_pengajuan;
         // return dd($updatePengajuan);
         $updatePengajuan->save();
@@ -188,7 +172,7 @@ class PengajuanController extends Controller
 
     public function detailPengajuan($id){
         $data['details'] = DetailPengajuan::get();
-        $data['judul']= Pengajuan::where('id_pengajuan',$id)->select('id_pengajuan','judul_pengajuan')->get();
+        $data['judul']= Pengajuan::where('id_pengajuan',$id)->get();
         // $resp= explode(":",$judul);
         // $re=$resp[1];
         // $data['judul_pengajuan']=substr($re, 1, -3);
@@ -201,9 +185,19 @@ class PengajuanController extends Controller
          return view('directory.detailPengajuan', $data);
     }
 
-    public function hapusdetailPengajuan($id_pengajuan,$id_detail){
+    public function hapusdetailPengajuan($id_pengajuan,$id_mapping_pengajuan_detail){
         //return dd($id);
-        DetailPengajuan::destroy($id_detail);
+        $mapping_detail = MappingDetailPengajuan::find($id_mapping_pengajuan_detail);
+        $sub_total = $mapping_detail->sub_total;
+        $pengajuan = Pengajuan::find($id_pengajuan);
+
+            // Make sure you've got the Page model
+            if($pengajuan) {
+                // $jml = $pengajuan->jumlah;
+                $pengajuan->jumlah_pengajuan -= $sub_total;
+                $pengajuan->save();
+            }
+        $mapping_detail->destroy($id_mapping_pengajuan_detail);
         return redirect()->route('detailawal', [$id_pengajuan]);
         // redirect()->action('App\Http\Controllers\PengajuanController@detailPengajuan', [1]);
     }

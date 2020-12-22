@@ -55,10 +55,6 @@
                   <input type="text" class="form-control" name="deskripsi_pengajuan" placeholder="Masukkan Deskripsi Pengajuan" value = "{{old('deskripsi_pengajuan')}}" required>
                 </div>
                 <div class="form-group">
-                  <label>Nominal</label>
-                  <input type="number" class="form-control" name="jumlah_pengajuan" placeholder="Masukkan Nominal Pengajuan" value = "{{old('jumlah_pengajuan')}}" required>
-                </div>
-                <div class="form-group">
                   <label>Nama Peminta</label>
                   <select class="form-control"  name="nama_pembuat_pengajuan" id="nama_pembuat_pengajuan" required>
                     <option value="" selected>Pilih Nama</option>
@@ -100,8 +96,8 @@
           $.ajax({
             url:"{{ route('pengajuan.getJabatan') }}",
             type:"get",
-            contentType: "application/json",
-            dataType: "json",
+            // contentType: "application/json",
+            // dataType: "json",
             data: {id: id_akun},
                   success:function(response) {
                   // console.log(Object.values(response));

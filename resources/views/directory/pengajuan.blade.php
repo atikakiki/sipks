@@ -125,11 +125,11 @@
                     </div>
                     <div class="form-group">
                       <label>Jumlah</label>
-                      <input type="text" class="form-control" name="jumlah_pengajuan" value="{{$pengajuan->jumlah_pengajuan}}" required>
+                      <input type="text" class="form-control" name="jumlah_pengajuan" value="{{$pengajuan->jumlah_pengajuan}}" disabled>
                     </div>
                     <div class="form-group">
                       <label>Nama Pembuat</label>
-                      <input type="text" class="form-control" name="nama_pembuat_pengajuan" value="{{$pengajuan->nama_pembuat_pengajuan}}" required>
+                      <input type="text" class="form-control" name="nama_pembuat_pengajuan" value="{{$pengajuan->nama_pembuat_pengajuan}}" disabled>
                     </div>
                     <div class="box-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
