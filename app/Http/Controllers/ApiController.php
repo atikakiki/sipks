@@ -76,10 +76,11 @@ class ApiController extends Controller
         public function getpengajuan (Request $request){
 
           // $data['pengajuan'] = Auth::user();
+
           if(Auth::user()->role_akun=='1')
           {
             // dd($request->status);
-            if($request->status=='0')
+            if($request->status==0)
             {
                  $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
                 {
@@ -117,7 +118,7 @@ class ApiController extends Controller
                     $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
                           ->where ('users.id', Auth::user()->id);
 
-                })->where('status_pengajuan',$request->status)->get();
+                })->where('status_pengajuan','0')->get();
             }
             else if($request->status==3)
             {
@@ -143,16 +144,7 @@ class ApiController extends Controller
         }
 
         public function getdetail($id){
-          // $data['detailpeng'] = DetailPengajuan::where('id_pengajuan',$id)->get();
-  
-          // $data['detailpeng'] = DetailPengajuan::join('Pengajuan', function ($join)
-          //         {
-          //             $join->on('detail_pengajuan.id_pengajuan', '=', 'Pengajuan.id_pengajuan')
-                      // ;
-                  //      ->where('detail_pengajuan.id_pengajuan', $id);
-                  // })->get();
-          // $data['detailpeng'] = DB::select( DB::raw("SELECT * FROM detail_pengajuan dp JOIN pengajuan p ON dp.id_pengajuan=p.id_pengajuan where dp.id_pengajuan = '".$id."'") );
-            // $data['details'] = DetailPengajuan::get();
+
             $data['detailpeng'] = DB::table('Pengajuan')
                                             ->join('mapping_pengajuan_detail','pengajuan.id_pengajuan','=', 'mapping_pengajuan_detail.id_pengajuan')
                                             ->join('detail_pengajuan', 'detail_pengajuan.id_detail', '=', 'mapping_pengajuan_detail.id_detail')
