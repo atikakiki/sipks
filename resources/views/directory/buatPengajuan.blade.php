@@ -37,14 +37,14 @@
             @endif
         <form action="{{ url('pengajuan/postPengajuan') }}" method="POST">
         @csrf
-                <div class="form-group">
-                  <label>Sekolah</label>
-                  <select class="form-control" name="id_sekolah">
-                  @foreach($sekolahs as $key=>$sekolah)
-                    <option value="{{$sekolah->id_sekolah}}" selected>{{$sekolah->nama_sekolah}}</option>
-                  @endforeach
-                  </select>
+
+               <input type="hidden" class="form-control" name="id_sekolah" value="{{$sekolah->id_sekolah}}">
+
+               <div class="form-group">
+                 <label>Sekolah</label>
+                 <input type="text" disabled class="form-control" name="nama_sekolah" value="{{$sekolah->nama_sekolah}}">
                </div>
+
                 <div class="form-group">
                   <label>Judul Pengajuan</label>
                   <input type="text" class="form-control" id="judul_pengajuan" name="judul_pengajuan" placeholder="Masukkan Judul Pengajuan" value = "{{old('judul_pengajuan')}}" required>
@@ -59,7 +59,7 @@
                   <select class="form-control"  name="nama_pembuat_pengajuan" id="nama_pembuat_pengajuan" required>
                     <option value="" selected>Pilih Nama</option>
                     @foreach($users as $key=>$user)
-                    <option value="{{$user->id}}">{{$user->name}}</option>
+                    <option value="{{$user->name}}">{{$user->name}}</option>
                     @endforeach
                   </select>
              </div>

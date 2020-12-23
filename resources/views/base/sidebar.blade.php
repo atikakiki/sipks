@@ -40,7 +40,7 @@
           </a>
         </li>
 
-        <li class="treeview">
+<!--         <li class="treeview">
           <a href="#">
             <i class="fa fa-user"></i> <span>Profil</span>
             <span class="pull-right-container">
@@ -51,7 +51,7 @@
               <li><a href="{{ url('/lihatprofil')}}"><i class="fa fa-circle-o"></i>Personal Info</a></li>
               <li><a href="{{ url('/logout')}}"><i class="fa fa-circle-o"></i>Logout</a></li>
             </ul>
-        </li>
+        </li> -->
 
 
 

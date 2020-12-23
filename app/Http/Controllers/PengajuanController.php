@@ -78,7 +78,7 @@ class PengajuanController extends Controller
 
     public function getJabatan(Request $request){
         $data = Jabatan::join('users', 'jabatan.id_jabatan', '=', 'users.id_jabatan')
-                    ->where('users.id',$request->id)
+                    ->where('users.name',$request->id)
                     ->get('jabatan.nama_jabatan');
         $resp= explode(":",$data);
         $re=$resp[1];

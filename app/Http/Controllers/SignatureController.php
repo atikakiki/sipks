@@ -92,7 +92,7 @@ class SignatureController extends Controller
     	$base64_string = $request->file('image');
 
     	$id_usr = Auth::user()->id;
-    	$image_name = 'uploadSignature/'.$id_usr;
+    	$image_name = 'predictSignature/'.$id_usr;
 
     	if (!file_exists($image_name)) {
     	 if (!mkdir($image_name)) {
