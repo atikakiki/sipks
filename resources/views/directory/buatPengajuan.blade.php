@@ -37,14 +37,14 @@
             @endif
         <form action="{{ url('pengajuan/postPengajuan') }}" method="POST">
         @csrf
-
+                @foreach($sekolah as $key => $sekolah)
                <input type="hidden" class="form-control" name="id_sekolah" value="{{$sekolah->id_sekolah}}">
 
                <div class="form-group">
                  <label>Sekolah</label>
                  <input type="text" disabled class="form-control" name="nama_sekolah" value="{{$sekolah->nama_sekolah}}">
                </div>
-
+                @endforeach
                 <div class="form-group">
                   <label>Judul Pengajuan</label>
                   <input type="text" class="form-control" id="judul_pengajuan" name="judul_pengajuan" placeholder="Masukkan Judul Pengajuan" value = "{{old('judul_pengajuan')}}" required>

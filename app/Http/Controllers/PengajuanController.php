@@ -39,7 +39,7 @@ class PengajuanController extends Controller
 
 
     public function buatPengajuan(){
-        $data['sekolahs'] = DB::table('users')->join('Sekolah', function ($join)
+        $data['sekolah'] = DB::table('users')->join('Sekolah', function ($join)
         {
             $join->on('users.id_sekolah', '=', 'Sekolah.id_sekolah');
         })->where('users.id',Auth::user()->id)->select('sekolah.id_sekolah','sekolah.nama_sekolah')->get();
@@ -91,18 +91,28 @@ class PengajuanController extends Controller
     }
 
     public function getDetail(Request $request){
+        $arr = [];
         $data = DetailPengajuan::where('id_detail',$request->id_detail)
-                    // ->select('id_detail','nama_detail','harga_satuan')
-                    ->get('harga_satuan');
+                    ->select('nama_detail','harga_satuan')
+                    ->get();
         $resp= explode(":",$data);
-        $re=$resp[1];
-        $res=substr($re, 0, -2);
+        for($i=0;$i<count($resp);$i++){
+            array_push($arr,$resp[$i]);
+        }
+        $nama_detail=substr($resp[1], 1, -16);
+        $harga_satuan=substr($resp[2], 0, -2);
+        $response = array(
+            "nama_detail" => $nama_detail,
+            "harga_satuan" => $harga_satuan
+        );
+        // $res=substr($re, 1, -3);
+        // $harga_satuan=$resp[2];
         // $res= preg_replace("/[^a-zA-Z]/", "", $re);
                     // var r = res[1];
                     // var ok = preg_replace("/[^a-zA-Z]/", "", r);
-                    $jsonResponse=json_encode($res);
-                    return $jsonResponse;
-        // dd($jabatan);
+                    // $jsonResponse=json_encode($res);
+                    // return $jsonResponse;
+        return response()->json($response);
     }
 
         public function postDetail(Request $request){

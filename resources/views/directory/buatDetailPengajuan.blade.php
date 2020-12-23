@@ -109,16 +109,17 @@ function coba(){
             dataType: "json",
             data: {id_detail: id_detail},
                   success:function(data) {
-                    var subtotal = jumlah_detail * data;
+                    // var nama_detail = data.nama_detail;
+                    var subtotal = jumlah_detail * data.harga_satuan;
                     arr_input.push(id_detail,jumlah_detail,subtotal);
                     console.log(arr_input);
                     html = '<tr>';
                     html += '<td name="id_detail[]">';
-                    html += id_detail;
+                    html += data.nama_detail;
                     html += '</td><td name="jumlah_detail[]">';
                     html += jumlah_detail;
                     html += '</td><td name="harga_satuan_detail[]">';
-                    html += data;
+                    html += data.harga_satuan;
                     html += '</td><td name="sub_total[]">';
                     html += subtotal;
                     html += '</td><td><button type="button" name="remove" onclick="hapus(this);" id="" class="btn btn-danger remove">Hapus</button></td></tr>';
