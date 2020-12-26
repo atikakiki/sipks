@@ -16,26 +16,26 @@ class FaceController extends Controller
 {
 	//
 	public function trainGAN(){
-		// $id_usr = Auth::user()->id;
-    	// $image_name = 'uploadFace/'.$id_usr;
+		$id_usr = Auth::user()->id;
+    	$image_name = 'uploadFace/'.$id_usr;
 
-    	// if (!file_exists($image_name))
-    	// {
-    	//     $m = array('msg' => "REJECTED,no data to train");
-    	//     echo json_encode($m);
-    	//     return;
-    	// }
+    	if (!file_exists($image_name))
+    	{
+    	    $m = array('msg' => "REJECTED,no data to train");
+    	    echo json_encode($m);
+    	    return;
+    	}
 
-    	// $files = File::files(public_path($image_name));
-    	//   $filecount = 0;
+    	$files = File::files(public_path($image_name));
+    	  $filecount = 0;
     	  
-    	//   if ($files !== false) {
-    	//       $filecount = count($files);
-    	//   }   	  
+    	  if ($files !== false) {
+    	      $filecount = count($files);
+    	  }   	  
 
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
-    	$command = escapeshellcmd("python ".public_path("code/gan/add2.py")."");
+		$command = escapeshellcmd("python ".public_path("code/gan.py")." ". public_path("uploadFace/".$id_usr."/".$fullName)." ".public_path("aligned_images/".$id_usr."/".$fullName));
 		$output = shell_exec($command);
 		if($output){
 			$m = array('msg' => "berhasil");
@@ -106,15 +106,18 @@ class FaceController extends Controller
     	if (!$ifp){
     	    $m=array('msg' => "REJECTED, ".$fullName."not saved");
     	    echo json_encode($m);
-    	    return;}
+			return;
+		}
 
+		$command = escapeshellcmd("python ".public_path("code/checkFace.py")." ". public_path("uploadFace/".$id_usr."/".$fullName));
+		$output = shell_exec($command);
     	// $command = escapeshellcmd("python checkSignature.py ".$fullName);
     	// $output = shell_exec($command);
 
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
 
-    	$m = array('msg' => "masuk send"." total(".$filecount.")");
+    	$m = array('msg' => $output);
     	echo json_encode($m);
 
     }

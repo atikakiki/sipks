@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-import cv2
+from cv2 import cv2
+# import cv2
 import os
 import sys
 
@@ -9,7 +10,7 @@ def detect_faces(f_cascade, img, scaleFactor = 1.1,needGray=False):
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     else:
         gray = img
-    faces = f_cascade.detectMultiScale(gray, scaleFactor=scaleFactor, minNeighbors=1);
+    faces = f_cascade.detectMultiScale(gray, scaleFactor=scaleFactor, minNeighbors=1)
     for (x, y, w, h) in faces:
         sub_face = gray[y+2:y+h-2, x+2:x+w-2]
     
@@ -29,8 +30,12 @@ if __name__=="__main__":
     else:
         aligned_img = detect_faces(haar_face_cascade,img) 
         if aligned_img is None:
+            os.system('del %s'%nmFile)
             face=False
     if face == True:
         print("ACCEPTED")
     else:
         print("REJECTED, not face no remove , no add to repository  ")
+        os.system('del %s'%nmFile)
+
+        
