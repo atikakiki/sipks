@@ -14,7 +14,38 @@ use Session;
 
 class FaceController extends Controller
 {
-    //
+	//
+	public function trainGAN(){
+		// $id_usr = Auth::user()->id;
+    	// $image_name = 'uploadFace/'.$id_usr;
+
+    	// if (!file_exists($image_name))
+    	// {
+    	//     $m = array('msg' => "REJECTED,no data to train");
+    	//     echo json_encode($m);
+    	//     return;
+    	// }
+
+    	// $files = File::files(public_path($image_name));
+    	//   $filecount = 0;
+    	  
+    	//   if ($files !== false) {
+    	//       $filecount = count($files);
+    	//   }   	  
+
+    	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
+    	// $fileCount = iterator_count($fi);
+    	$command = escapeshellcmd("python ".public_path("code/gan/add2.py")."");
+		$output = shell_exec($command);
+		if($output){
+			$m = array('msg' => "berhasil");
+		}
+		else{
+			$m = array('msg' => "gagal");
+		}
+    	echo json_encode($m);
+	}
+
         public function trainFace()
     {	
     	$id_usr = Auth::user()->id;

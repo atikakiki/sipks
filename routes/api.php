@@ -37,5 +37,6 @@ Route::post('predictsignature','SignatureController@predictSignature')->middlewa
 
 
 Route::post('trainface','FaceController@trainFace')->middleware('auth:api');
+Route::post('trainfacegan','FaceController@trainGAN')->middleware('auth:api');
 Route::post('sendface','FaceController@sendFace')->middleware('auth:api');
 Route::post('predictface','FaceController@predictFace')->middleware('auth:api');
