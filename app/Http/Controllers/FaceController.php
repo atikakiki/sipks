@@ -127,7 +127,7 @@ class FaceController extends Controller
     	$base64_string = $request->file('image');
 
     	$id_usr = Auth::user()->id;
-    	$image_name = 'uploadFace/'.$id_usr;
+    	$image_name = 'predictFace/'.$id_usr;
 
     	if (!file_exists($image_name)) {
     	 if (!mkdir($image_name)) {
@@ -136,13 +136,7 @@ class FaceController extends Controller
     	    return;}
     	}
 
-    	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
-    	// $fileCount = iterator_count($fi)+1;
-    	// $data = explode(',', $base64_string);
-    	// $fullName = $image_name."/X__".$fileCount."_". date("YmdHis") .".png";
-    	// $ifp = fopen($fullName, "wb");
-    	// fwrite($ifp, base64_decode($data[1]));
-    	// fclose($ifp);
+   
     	$files = File::files(public_path($image_name));
     	  $filecount = 0;
     	  
@@ -153,15 +147,16 @@ class FaceController extends Controller
 
     	$fullName = $id_usr."_".$filecount."_". date("YmdHis") .".png";
 
+        // dd($fullName);
     	$ifp = $base64_string->move($image_name,$fullName);
 
     	if (!$ifp){
     	    $m=array('msg' => "REJECTED, ".$fullName."not saved");
     	    echo json_encode($m);
     	    return;}
-    	// $command = escapeshellcmd("python doPredictSignature.py ".$username ." " .$fullName);
-    	// $output = shell_exec($command);
-    	$m = array('msg' => "masuk predict");
+        $command = escapeshellcmd("python ".public_path("code/doPredict.py")." ".$id_usr. " ".public_path("predictFace/".$id_usr."/".$fullName));
+        $output = shell_exec($command);
+    	$m = array('msg' => $output);
     	echo json_encode($m);
     }
 }

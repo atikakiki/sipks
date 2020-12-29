@@ -58,11 +58,20 @@ class SignatureController extends Controller
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi)+1;
     	$files = File::files(public_path($image_name));
+        // dd($files);
+
     	  $filecount = 0;
     	  
     	  if ($files !== false) {
-    	      $filecount = count($files)+1;
+    	      $filecount = count($files);
     	  } 
+
+
+
+        if($filecount==6){
+            echo json_encode(array('msg' => "Upload Signature Selesai, Data Tersimpan"));
+            return;
+        }
 
     	// $data = explode(',', $base64_string);
     	$fullName = $id_usr."_".$filecount."_". date("YmdHis") .".png";
@@ -82,7 +91,7 @@ class SignatureController extends Controller
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
 
-    	$m = array('msg' => $output);
+    	$m = array('msg' => "upload sebanyak 6x");
     	echo json_encode($m);
 
     }

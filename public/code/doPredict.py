@@ -15,6 +15,9 @@ import os,cv2
 import time
 import numpy as np
 import operator
+# import ctypes
+
+# hllDll = ctypes.WinDLL("C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v10.0\\bin\\cudart64_100.dll")
 
 
 def loadModel(nmModel):
@@ -118,8 +121,8 @@ if __name__ == '__main__':
     model=loadModel('modelTR.pkl')
     nrp = sys.argv[1]
     nmFile = sys.argv[2]
-    # nrp = '20191031082240'
-    # nmFile = 'D:\\xampp\\htdocs\\predictFace\\20191031082240\\X__1_20191024075755.png'
+    # nrp = '12'
+    # nmFile = 'C:\\xampp\\htdocs\\sipks\\public\\predictFace\\12\\12_4_20201227133626.png'
     
     t,r=prediksiImg(nmFile,nrp,model)
     elapsed = time.time() - t
