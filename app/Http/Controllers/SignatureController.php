@@ -68,7 +68,7 @@ class SignatureController extends Controller
 
 
 
-        if($filecount==6){
+        if($filecount==5){
             echo json_encode(array('msg' => "Upload Signature Selesai, Data Tersimpan"));
             return;
         }
@@ -91,7 +91,7 @@ class SignatureController extends Controller
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
 
-    	$m = array('msg' => "upload sebanyak 6x");
+    	$m = array('msg' => "Silahkan Upload tanda tangan sebanyak 6x");
     	echo json_encode($m);
 
     }
