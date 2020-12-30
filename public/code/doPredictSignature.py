@@ -105,7 +105,7 @@ def prediksiImg(nmFile,nrp,model):
 
 if __name__ == '__main__':
     #t = time.time()
-    model=loadModel('modelTR_Signature.pkl')
+    model=loadModel('C:/xampp/htdocs/sipks/public/code/modelTR_Signature.pkl')
     nrp = sys.argv[1]
     nmFile = sys.argv[2]
     # nrp = '5113100140'

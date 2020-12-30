@@ -118,7 +118,7 @@ def prediksiImg(nmFile,nrp,model):
 if __name__ == '__main__':
     #t = time.time()
     haar_face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
-    model=loadModel('modelTR.pkl')
+    model=loadModel('C:/xampp/htdocs/sipks/public/code/modelTR.pkl')
     nrp = sys.argv[1]
     nmFile = sys.argv[2]
     # nrp = '12'

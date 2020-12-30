@@ -135,7 +135,9 @@ class SignatureController extends Controller
     	    return;}
 
         $command = escapeshellcmd("python ".public_path("code/doPredictSignature.py")." ".$id_usr." ". public_path("uploadSignature/".$id_usr."/".$fullName));
+        // $command = escapeshellcmd("python --version");
         $output = shell_exec($command);
+         // $output = $command;
     	// $command = escapeshellcmd("python doPredictSignature.py ".$username ." " .$fullName);
     	// $output = shell_exec($command);
 
