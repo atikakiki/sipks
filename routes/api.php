@@ -31,12 +31,12 @@ Route::post('pengajuan/detail', 'ApiController@postPengajuan')->middleware('auth
 Route::post('postWajah', 'ApiController@postWajah')->middleware('auth:api');
 Route::get('show/{filename}','ApiController@show')->middleware('auth:api');
 
-Route::post('trainsignature','SignatureController@trainSignature')->middleware('auth:api');
+Route::get('trainsignature','SignatureController@trainSignature')->middleware('auth:api');
 Route::post('sendsignature','SignatureController@sendSignature')->middleware('auth:api');
 Route::post('predictsignature','SignatureController@predictSignature')->middleware('auth:api');
 
 
-Route::post('trainface','FaceController@trainFace')->middleware('auth:api');
-Route::post('trainfacegan','FaceController@trainGAN')->middleware('auth:api');
+Route::get('trainface','FaceController@trainFace')->middleware('auth:api');
+Route::get('trainfacegan','FaceController@trainGAN')->middleware('auth:api');
 Route::post('sendface','FaceController@sendFace')->middleware('auth:api');
 Route::post('predictface','FaceController@predictFace')->middleware('auth:api');

@@ -15,16 +15,16 @@ import os,cv2
 import time
 import numpy as np
 import operator
-# import ctypes
+import ctypes
+import sys
 
-# hllDll = ctypes.WinDLL("C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v10.0\\bin\\cudart64_100.dll")
 
+#hllDll = ctypes.WinDLL("C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v10.1\\bin")
 
 def loadModel(nmModel):
     f = open(nmModel, 'rb')
     model = pickle.load(f)
     return model
-
 
 def createMobileNet():
     mobileNet =  MobileNet(include_top=False, weights='imagenet', 

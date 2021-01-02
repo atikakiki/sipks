@@ -35,7 +35,7 @@ class SignatureController extends Controller
 
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
-    	$command = escapeshellcmd("python ".public_path("code/doTrainSignature.py")." ".$id_usr);
+    	$command = escapeshellcmd("python ".public_path("code/doTrainSignature.py")." ". $id_usr);
         $output = shell_exec($command);
     	$m = array('msg' => $output);
     	echo json_encode($m);
@@ -134,7 +134,7 @@ class SignatureController extends Controller
     	    echo json_encode($m);
     	    return;}
 
-        $command = escapeshellcmd("python ".public_path("code/doPredictSignature.py")." ".$id_usr." ". public_path("uploadSignature/".$id_usr."/".$fullName));
+        $command = escapeshellcmd("python ".public_path("code/doPredictSignature.py")." ".$id_usr." ". public_path("predictSignature/".$id_usr."/".$fullName));
         // $command = escapeshellcmd("python --version");
         $output = shell_exec($command);
          // $output = $command;

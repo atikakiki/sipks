@@ -51,7 +51,7 @@ if __name__ == '__main__':
     # nrp = '5113100141'
     # nrp = 05111640000042
 
-    path = "D:\\xampp\\htdocs\\uploadSignature\\" + nrp
+    path ="C:\\xampp\\htdocs\\sipks\\public\\uploadSignature\\" + nrp
 
     ModelmobileNet = createMobileNet()
     
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     #
     
     now = datetime.now()
-    pathDEST = "D:\\xampp\\htdocs\\trainedSignature\\%s_%s"%(nrp,now.strftime("%Y_%m_%d_%H_%M_%S"))
+    pathDEST = "C:\\xampp\\htdocs\\sipks\\public\\trainedSignature\\%s_%s"%(nrp,now.strftime("%Y_%m_%d_%H_%M_%S"))
     checkDirectory(pathDEST)
     os.system('move %s %s'%(path,pathDEST))      
     
