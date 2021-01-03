@@ -67,10 +67,10 @@ class FaceController extends Controller
 
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
-    	// $command = escapeshellcmd("python doTrainSignature.py ".$id_usr);
-    	// $output = shell_exec($command);
-    	$m = array('msg' => "OKEHHH" . " total(".$filecount. ") has been trained ");
-    	echo json_encode($m);
+        $command = escapeshellcmd("python ".public_path("code/doTrainMobileNet.py")." ". $id_usr);
+        $output = shell_exec($command);
+        $m = array('msg' => $output);
+        echo json_encode($m);
     }
 
 
@@ -91,13 +91,21 @@ class FaceController extends Controller
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi)+1;
     	$files = File::files(public_path($image_name));
-    	  $filecount = 0;
-    	  
-    	  if ($files !== false) {
-    	      $filecount = count($files)+1;
-    	  } 
+            // dd($files);
 
-    	// $data = explode(',', $base64_string);
+              // $filecount = 1;
+              
+        if ($files !== false) {
+                  $filecount = count($files);
+        } 
+
+
+
+        if($filecount==5){
+            echo json_encode(array('msg' => "Upload Wajah Selesai, Data Tersimpan"));
+            return;
+        }
+
     	$fullName = $id_usr."_".$filecount."_". date("YmdHis") .".png";
     	// $ifp = fopen($fullName, "wb");
     	// fwrite($ifp, base64_decode($data[1]));
@@ -109,16 +117,15 @@ class FaceController extends Controller
 			return;
 		}
 
-		$command = escapeshellcmd("python ".public_path("code/checkFace.py")." ". public_path("uploadFace/".$id_usr."/".$fullName));
-		$output = shell_exec($command);
+		// $command = escapeshellcmd("python ".public_path("code/checkFace.py")." ". public_path("uploadFace/".$id_usr."/".$fullName));
+		// $output = shell_exec($command);
     	// $command = escapeshellcmd("python checkSignature.py ".$fullName);
     	// $output = shell_exec($command);
 
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
 
-    	$m = array('msg' => $output);
-    	echo json_encode($m);
+    	$m = array('msg' => "Upload Face Berhasil, Silahkan Train FaceUpload sebanyak 5x;
 
     }
 

@@ -58,12 +58,12 @@ if __name__ == '__main__':
     haar_face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
     nrp_list = []
     ftr_list = []
-    # nrp=sys.argv[1]
-    nrp = '20191031082240'
+    nrp=sys.argv[1]
+    # nrp = '20191031082240'
     # nrp = '05111740000007'
     # nrp = 05111640000042
 
-    path = "D:\\xampp\\htdocs\\uploadFace\\" + nrp
+    path = "C:\\xampp\\htdocs\\sipks\\public\\uploadFace\\" + nrp
 
     ModelmobileNet = createMobileNet()
     
@@ -71,7 +71,7 @@ if __name__ == '__main__':
         nmFile = path + "\\" + imgFile
         img = cv2.imread(nmFile)
         img = cv2.resize(img, IMG_DIM)
-        img = detect_faces(haar_face_cascade,img)
+        # img = detect_faces(haar_face_cascade,img)
         if img is None:
             # print("face not detected %s"%nmFile)
             continue
@@ -98,7 +98,8 @@ if __name__ == '__main__':
     #print("Selesai ...")
     #
     now = datetime.now()
-    pathDEST = "D:\\xampp\\htdocs\\trainedFace\\%s_%s"%(nrp,now.strftime("%Y_%m_%d_%H_%M_%S"))
+    pathDEST = "C:\\xampp\\htdocs\\sipks\\public\\trainedFace\\%s_%s"%(nrp,now.strftime("%Y_%m_%d_%H_%M_%S"))
+
     checkDirectory(pathDEST)
     os.system('move %s %s'%(path,pathDEST))        
     

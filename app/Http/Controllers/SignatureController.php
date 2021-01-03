@@ -60,7 +60,7 @@ class SignatureController extends Controller
     	$files = File::files(public_path($image_name));
         // dd($files);
 
-    	  $filecount = 0;
+    	  // $filecount = 1;
     	  
     	  if ($files !== false) {
     	      $filecount = count($files);
@@ -72,6 +72,7 @@ class SignatureController extends Controller
             echo json_encode(array('msg' => "Upload Signature Selesai, Data Tersimpan"));
             return;
         }
+
 
     	// $data = explode(',', $base64_string);
     	$fullName = $id_usr."_".$filecount."_". date("YmdHis") .".png";
@@ -91,7 +92,7 @@ class SignatureController extends Controller
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
 
-    	$m = array('msg' => "Silahkan Upload tanda tangan sebanyak 6x");
+    	$m = array('msg' => "Silahkan Upload tanda tangan sebanyak 5x");
     	echo json_encode($m);
 
     }
