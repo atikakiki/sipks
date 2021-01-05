@@ -27,6 +27,12 @@ Route::get('pengajuan/detail/{id}', [
 ]);
 
 Route::post('pengajuan/detail', 'ApiController@tolakPengajuan')->middleware('auth:api');
+<<<<<<< HEAD
+=======
+
+Route::post('postWajah', 'ApiController@postWajah')->middleware('auth:api');
+Route::get('show/{filename}','ApiController@show')->middleware('auth:api');
+>>>>>>> bead6a4cac38d939686ad8df95707fc7160144bd
 
 Route::get('trainsignature','SignatureController@trainSignature')->middleware('auth:api');
 Route::post('sendsignature','SignatureController@sendSignature')->middleware('auth:api');

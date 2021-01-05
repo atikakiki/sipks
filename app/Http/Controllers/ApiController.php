@@ -87,9 +87,15 @@ class ApiController extends Controller
                     $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
                           ->where ('users.id', Auth::user()->id);
                 })->where('status_pengajuan','0')->orWhere('status_pengajuan','1')->get();
+<<<<<<< HEAD
                 foreach($data['pengajuan'] as $item){
                   $item->msg = "0";
               }
+=======
+              //   foreach($data['pengajuan'] as $item){
+              //     $item->msg = "0";
+              // }
+>>>>>>> bead6a4cac38d939686ad8df95707fc7160144bd
             }
             else if($request->status==3){
                $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
@@ -98,9 +104,15 @@ class ApiController extends Controller
                         ->where ('users.id', Auth::user()->id);
 
               })->where('status_pengajuan','3')->get();
+<<<<<<< HEAD
               foreach($data['pengajuan'] as $item){
                 $item->msg = "0";
               }
+=======
+              // foreach($data['pengajuan'] as $item){
+              //   $item->msg = "0";
+              // }
+>>>>>>> bead6a4cac38d939686ad8df95707fc7160144bd
 
             }
             else{
@@ -110,9 +122,15 @@ class ApiController extends Controller
                             ->where ('users.id', Auth::user()->id);
 
                   })->where('status_pengajuan','2')->get();
+<<<<<<< HEAD
                   foreach($data['pengajuan'] as $item){
                     $item->msg = "1";
                 }
+=======
+                //   foreach($data['pengajuan'] as $item){
+                //     $item->msg = "1";
+                // }
+>>>>>>> bead6a4cac38d939686ad8df95707fc7160144bd
             }
 
           }
@@ -127,9 +145,15 @@ class ApiController extends Controller
                           ->where ('users.id', Auth::user()->id);
 
                 })->where('status_pengajuan','0')->get();
+<<<<<<< HEAD
                 foreach($data['pengajuan'] as $item){
                   $item->msg = "0";
               }
+=======
+              //   foreach($data['pengajuan'] as $item){
+              //     $item->msg = "0";
+              // }
+>>>>>>> bead6a4cac38d939686ad8df95707fc7160144bd
             }
             else if($request->status==3)
             {
@@ -139,9 +163,15 @@ class ApiController extends Controller
                         ->where ('users.id', Auth::user()->id);
 
               })->where('status_pengajuan','3')->get();
+<<<<<<< HEAD
               foreach($data['pengajuan'] as $item){
                 $item->msg = "0";
             }
+=======
+              // foreach($data['pengajuan'] as $item){
+              //   $item->msg = "0";
+            // }
+>>>>>>> bead6a4cac38d939686ad8df95707fc7160144bd
             }
             else{
                    $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
@@ -150,9 +180,15 @@ class ApiController extends Controller
                             ->where ('users.id', Auth::user()->id);
 
                   })->where('status_pengajuan','1')->orWhere('status_pengajuan','2')->get();
+<<<<<<< HEAD
                   foreach($data['pengajuan'] as $item){
                     $item->msg = "1";
                 }
+=======
+                //   foreach($data['pengajuan'] as $item){
+                //     $item->msg = "1";
+                // }
+>>>>>>> bead6a4cac38d939686ad8df95707fc7160144bd
             }
           }
            return json_encode($data);
@@ -160,18 +196,50 @@ class ApiController extends Controller
 
         public function getdetail($id){
 
+          if(Auth::user()->role_akun=='1')
+          {
             $data['detailpeng'] = DB::table('Pengajuan')
                                             ->join('mapping_pengajuan_detail','pengajuan.id_pengajuan','=', 'mapping_pengajuan_detail.id_pengajuan')
                                             ->join('detail_pengajuan', 'detail_pengajuan.id_detail', '=', 'mapping_pengajuan_detail.id_detail')
                                             ->where('mapping_pengajuan_detail.id_pengajuan',$id)
                                             ->get();
              foreach($data['detailpeng'] as $item){
+<<<<<<< HEAD
                     $item->msg = "1"
                     if($item->status_pengajuan ==)
               }
 
 
           return json_encode($data);
+=======
+                    if($item->status_pengajuan == "1"){
+                      $item->msg = "1";
+                    }
+                    else{
+                      $item->msg = "0";
+                    }
+              }
+            return json_encode($data);
+          }
+          else
+          {
+            $data['detailpeng'] = DB::table('Pengajuan')
+                                            ->join('mapping_pengajuan_detail','pengajuan.id_pengajuan','=', 'mapping_pengajuan_detail.id_pengajuan')
+                                            ->join('detail_pengajuan', 'detail_pengajuan.id_detail', '=', 'mapping_pengajuan_detail.id_detail')
+                                            ->where('mapping_pengajuan_detail.id_pengajuan',$id)
+                                            ->get();
+             foreach($data['detailpeng'] as $item){
+                    if($item->status_pengajuan == "0"){
+                      $item->msg = "1";
+                    }
+                    else {
+                      $item->msg = "0";
+                    }
+              }
+            return json_encode($data);
+          }
+
+>>>>>>> bead6a4cac38d939686ad8df95707fc7160144bd
           
         }
 
