@@ -26,10 +26,7 @@ Route::get('pengajuan/detail/{id}', [
      'middleware' => 'auth:api',
 ]);
 
-Route::post('pengajuan/detail', 'ApiController@postPengajuan')->middleware('auth:api');
-
-Route::post('postWajah', 'ApiController@postWajah')->middleware('auth:api');
-Route::get('show/{filename}','ApiController@show')->middleware('auth:api');
+Route::post('pengajuan/detail', 'ApiController@tolakPengajuan')->middleware('auth:api');
 
 Route::get('trainsignature','SignatureController@trainSignature')->middleware('auth:api');
 Route::post('sendsignature','SignatureController@sendSignature')->middleware('auth:api');

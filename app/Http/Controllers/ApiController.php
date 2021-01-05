@@ -26,7 +26,7 @@ class ApiController extends Controller
       }
 
     public function login(Request $request){
-        	 $request->validate([
+           $request->validate([
             'email' => 'required',
             'password' => 'required'
           ]);
@@ -44,7 +44,7 @@ class ApiController extends Controller
         }
 
         public function refresh(Request $request){
-        	 $request->validate([
+           $request->validate([
             'refresh_token' => 'required'
           ]);
           $params = [
@@ -86,8 +86,10 @@ class ApiController extends Controller
                 {
                     $join->on('Pengajuan.id_sekolah', '=', 'Users.id_sekolah')
                           ->where ('users.id', Auth::user()->id);
-
                 })->where('status_pengajuan','0')->orWhere('status_pengajuan','1')->get();
+                foreach($data['pengajuan'] as $item){
+                  $item->msg = "0";
+              }
             }
             else if($request->status==3){
                $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
@@ -96,6 +98,9 @@ class ApiController extends Controller
                         ->where ('users.id', Auth::user()->id);
 
               })->where('status_pengajuan','3')->get();
+              foreach($data['pengajuan'] as $item){
+                $item->msg = "0";
+              }
 
             }
             else{
@@ -105,6 +110,9 @@ class ApiController extends Controller
                             ->where ('users.id', Auth::user()->id);
 
                   })->where('status_pengajuan','2')->get();
+                  foreach($data['pengajuan'] as $item){
+                    $item->msg = "1";
+                }
             }
 
           }
@@ -119,6 +127,9 @@ class ApiController extends Controller
                           ->where ('users.id', Auth::user()->id);
 
                 })->where('status_pengajuan','0')->get();
+                foreach($data['pengajuan'] as $item){
+                  $item->msg = "0";
+              }
             }
             else if($request->status==3)
             {
@@ -128,6 +139,9 @@ class ApiController extends Controller
                         ->where ('users.id', Auth::user()->id);
 
               })->where('status_pengajuan','3')->get();
+              foreach($data['pengajuan'] as $item){
+                $item->msg = "0";
+            }
             }
             else{
                    $data['pengajuan'] = DB::table('Pengajuan')->join('users', function ($join)
@@ -136,10 +150,11 @@ class ApiController extends Controller
                             ->where ('users.id', Auth::user()->id);
 
                   })->where('status_pengajuan','1')->orWhere('status_pengajuan','2')->get();
+                  foreach($data['pengajuan'] as $item){
+                    $item->msg = "1";
+                }
             }
           }
-
-
            return json_encode($data);
         }
 
@@ -150,35 +165,23 @@ class ApiController extends Controller
                                             ->join('detail_pengajuan', 'detail_pengajuan.id_detail', '=', 'mapping_pengajuan_detail.id_detail')
                                             ->where('mapping_pengajuan_detail.id_pengajuan',$id)
                                             ->get();
+             foreach($data['detailpeng'] as $item){
+                    $item->msg = "1"
+                    if($item->status_pengajuan ==)
+              }
+
+
           return json_encode($data);
           
         }
 
-        public function postPengajuan (Request $request){
+
+        public function tolakPengajuan (Request $request){
           $data = Pengajuan::where('id_pengajuan',$request->id)->first();
           $data->status_pengajuan = $request->status;
           $data->save();
           return json_encode(['status'=>'OK']);
         }
 
-        public function postWajah (Request $request){
-          $file = $request->file('photo');
-          $filename = $file->getClientOriginalName();
-          $path_file = 'fotowajah';
-          $data['fotowajah'] = FotoWajah::create([
-            'id_akun' => Auth::user()->id,
-            'name' => $filename,
-            'sample_wajah' => $file
-          ]);
-          $file->move($path_file,$filename);
-          $data['message'] = "Photo Stored";
-          return response()->json($data, 201);
-        }
-
-        public function show($filename){
-          $data = FotoWajah::where('name', $filename)->first();
-          // $data->sample_wajah = base64_encode($data->sample_wajah);
-          return response()->json($data,200);
-        }
 
 }

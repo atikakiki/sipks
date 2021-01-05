@@ -125,7 +125,8 @@ class FaceController extends Controller
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
 
-    	$m = array('msg' => "Upload Face Berhasil, Silahkan Train FaceUpload sebanyak 5x;
+    	$m = array('msg' => "Upload Face Berhasil, Silahkan Train FaceUpload sebanyak 5x");
+        echo json_encode($m);
 
     }
 
