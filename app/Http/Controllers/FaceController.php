@@ -15,6 +15,7 @@ use Session;
 class FaceController extends Controller
 {
 	//
+	
 	public function trainGAN(){
 		$id_usr = Auth::user()->id;
     	$image_name = 'uploadFace/'.$id_usr;
@@ -32,18 +33,10 @@ class FaceController extends Controller
     	  if ($files !== false) {
     	      $filecount = count($files);
     	  }   	  
-
-    	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
-    	// $fileCount = iterator_count($fi);
-		$command = escapeshellcmd("python ".public_path("code/gan.py")." ". public_path("uploadFace/".$id_usr."/".$fullName)." ".public_path("aligned_images/".$id_usr."/".$fullName));
-		$output = shell_exec($command);
-		if($output){
-			$m = array('msg' => "berhasil");
-		}
-		else{
-			$m = array('msg' => "gagal");
-		}
-    	echo json_encode($m);
+		$command = escapeshellcmd("python ".public_path("code/gan/run_model.py")." --input_path=". public_path("uploadFace/".$id_usr."")." --output_path=".public_path("uploadFace/".$id_usr.""));
+        $output = shell_exec($command);
+        $m = array('msg' => $output);
+        echo json_encode($m);
 	}
 
         public function trainFace()
