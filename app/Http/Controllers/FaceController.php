@@ -35,15 +35,19 @@ class FaceController extends Controller
 
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
-		$command = escapeshellcmd("python ".public_path("code/gan.py")." ". public_path("uploadFace/".$id_usr."/".$fullName)." ".public_path("aligned_images/".$id_usr."/".$fullName));
-		$output = shell_exec($command);
-		if($output){
-			$m = array('msg' => "berhasil");
-		}
-		else{
-			$m = array('msg' => "gagal");
-		}
-    	echo json_encode($m);
+		// $command = escapeshellcmd("python ".public_path("code/gan.py")." ". public_path("uploadFace/".$id_usr."/".$fullName)." ".public_path("aligned_images/".$id_usr."/".$fullName));
+		// $output = shell_exec($command);
+		// if($output){
+		// 	$m = array('msg' => "berhasil");
+		// }
+		// else{
+		// 	$m = array('msg' => "gagal");
+		// }
+		// echo json_encode($m);
+		$command = escapeshellcmd("python ".public_path("code/gan/run_model.py")." --input_path=". public_path("uploadFace/".$id_usr."")." --output_path=".public_path("uploadFace/".$id_usr.""));
+        $output = shell_exec($command);
+        $m = array('msg' => $output);
+        echo json_encode($m);
 	}
 
         public function trainFace()
@@ -125,7 +129,7 @@ class FaceController extends Controller
     	// $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
     	// $fileCount = iterator_count($fi);
 
-    	$m = array('msg' => "Upload Face Berhasil, Silahkan Train FaceUpload sebanyak 5x";
+    	$m = array('msg' => "Upload sebanyak 5x");
         echo json_encode($m);
 
     }
