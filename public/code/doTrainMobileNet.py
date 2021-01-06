@@ -55,7 +55,7 @@ def checkDirectory(filename):
 if __name__ == '__main__':
     t = time.time()
     
-    haar_face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
+    haar_face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
     nrp_list = []
     ftr_list = []
     nrp=sys.argv[1]
@@ -71,9 +71,9 @@ if __name__ == '__main__':
         nmFile = path + "\\" + imgFile
         img = cv2.imread(nmFile)
         img = cv2.resize(img, IMG_DIM)
-        # img = detect_faces(haar_face_cascade,img)
+        img = detect_faces(haar_face_cascade,img)
         if img is None:
-            # print("face not detected %s"%nmFile)
+            print("face not detected %s"%nmFile)
             continue
         img = cv2.resize(img, IMG_DIM)
         img=img/255
@@ -93,9 +93,9 @@ if __name__ == '__main__':
         nrp_np_old  =dataLoaded['nrp_np']
         ftr_np = np.concatenate((ftr_np,ftr_np_old),axis=0)
         nrp_np = np.concatenate((nrp_np,nrp_np_old),axis=0)
-    #print("saving to %s file "%(nmFile))
+    print("saving to %s file "%(nmFile))
     np.savez_compressed(nmFILE,nrp_np=nrp_np,ftr_np=ftr_np)
-    #print("Selesai ...")
+    print("Selesai ...")
     #
     now = datetime.now()
     pathDEST = "C:\\xampp\\htdocs\\sipks\\public\\trainedFace\\%s_%s"%(nrp,now.strftime("%Y_%m_%d_%H_%M_%S"))

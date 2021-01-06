@@ -18,7 +18,7 @@ def detect_faces(f_cascade, img, scaleFactor = 1.1,needGray=False):
 
 
 if __name__=="__main__":
-    haar_face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
+    haar_face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt.xml')
     
     nmFile=sys.argv[1]
     dim=96
