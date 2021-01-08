@@ -34,8 +34,16 @@ class FaceController extends Controller
     	      $filecount = count($files);
     	  }   	  
 		$command = escapeshellcmd("python ".public_path("code/gan/run_model.py")." --input_path=". public_path("uploadFace/".$id_usr."")." --output_path=".public_path("uploadFace/".$id_usr.""));
-        $output = shell_exec($command);
-        $m = array('msg' => $output);
+		set_time_limit(1000);
+		$output = shell_exec($command);
+		if($output='Done'){
+			$command = escapeshellcmd("python ".public_path("code/doTrainMobileNet.py")." ". $id_usr);
+        	$trainMN = shell_exec($command);
+			$m = array('msg' => $trainMN);
+		}
+		else{
+			$m = array('msg' => $output);
+		}
         echo json_encode($m);
 	}
 
@@ -90,10 +98,7 @@ class FaceController extends Controller
               
         if ($files !== false) {
                   $filecount = count($files);
-        } 
-
-
-
+        }
         if($filecount==5){
             echo json_encode(array('msg' => "Upload Wajah Selesai, Data Tersimpan"));
             return;

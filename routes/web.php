@@ -43,4 +43,4 @@ Route::get('/pengajuan/getDetail', 'PengajuanController@getDetail')->name('penga
 // Route::get('/pengajuan/detail/{id}', 'PengajuanController@detailPengajuan');
 Route::get('/pengajuan/detail/{id}', array('as'=>'detailawal', 'uses'=>'PengajuanController@detailPengajuan'))->middleware('cekstatus');
 Route::delete('/detailpengajuan/hapus/{Pengajuan}/{DetailPengajuan}', 'PengajuanController@hapusdetailPengajuan')->middleware('cekstatus');
-Route::put('/detailpengajuan/edit/{Pengajuan}/{MappingDetailPengajuan}','PengajuanController@editdetailPengajuan')->middleware('cekstatus');
+Route::put('/detailpengajuan/edit','PengajuanController@editdetailPengajuan')->middleware('cekstatus');

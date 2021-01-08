@@ -42,8 +42,8 @@ def main(_):
     if args.phase == 'test':
         deblur.test(args.height, args.width, args.input_path, args.output_path)
         print ('Done')
-    # elif args.phase == 'train':
-    #     deblur.train()
+    elif args.phase == 'train':
+        deblur.train()
     else:
         print('phase should be set to either test or train')
 

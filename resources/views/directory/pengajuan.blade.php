@@ -60,18 +60,31 @@
                 <td>{{$pengajuan->nama_pembuat_pengajuan}}</td>
                   @if($pengajuan->status_pengajuan =='0')
                     <td><label class="label bg-red">Belum Disetujui</label></td>
+                    <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>
+				  		          <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit{{$pengajuan->id_pengajuan}}"><i class="fa fa-fw fa-pencil"></i></button>
+                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus{{$pengajuan->id_pengajuan}}"><i class="fa fa-fw fa-trash"></i></button>
+                  </td>
                   @elseif($pengajuan->status_pengajuan =='1')
                     <td><label class="label bg-yellow">Disetujui Bendahara</label></td>
+	                  <td>
+                        <button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>
+                    </td>
                   @elseif($pengajuan->status_pengajuan =='2')
                     <td><label class="label bg-green">Disetujui Kepala Sekolah</label></td>
+                    <td>
+                        <button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>
+                    </td>
                   @elseif($pengajuan->status_pengajuan =='3')
                     <td><label class="label bg-black">Ditolak</label></td>
+                    <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>
+                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus{{$pengajuan->id_pengajuan}}"><i class="fa fa-fw fa-trash"></i></button>
+                    </td>
                 @endif
 	              <!-- <td>{{$pengajuan->status_pengajuan}}</td> -->
-	              <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>
+	              <!-- <td><button class="btn btn-primary" onclick="location.href='{{ url('/pengajuan/detail/'.$pengajuan->id_pengajuan)}}'" type="button"><i class="fa fa-fw fa-info"></i></button>
 				  		<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modal-edit{{$pengajuan->id_pengajuan}}"><i class="fa fa-fw fa-pencil"></i></button>
               <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modal-hapus{{$pengajuan->id_pengajuan}}"><i class="fa fa-fw fa-trash"></i></button>
-                  </td>
+                  </td> -->
 	            </tr>
 
               <div class="modal modal-danger fade" id="modal-hapus{{$pengajuan->id_pengajuan}}" style="display: none;">
@@ -83,7 +96,7 @@
                       <h4 class="modal-title">Hapus Pengajuan</h4>
                     </div>
                     <div class="modal-body">
-                      <p>Anda yakin ingin menghapus pengajuan ini? {{$pengajuan->id_pengajuan}}</p>
+                      <p>Anda yakin ingin menghapus pengajuan ini?</p>
                     </div>
                     <div class="modal-footer">
                       <form action = "{{ url('pengajuan/hapus/'.$pengajuan->id_pengajuan) }}" method="post">

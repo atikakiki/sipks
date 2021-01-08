@@ -20,7 +20,7 @@ class DEBLUR(object):
         self.chns = 3 if self.args.model == 'color' else 1  # input / output channels
 
         # if args.phase == 'train':
-        self.crop_size = 256
+        # self.crop_size = 256
         #self.data_list = open(args.datalist, 'rt').read().splitlines()
         #self.data_list = list(map(lambda x: x.split(' '), self.data_list))
         #random.shuffle(self.data_list)
@@ -161,77 +161,77 @@ class DEBLUR(object):
         for var in all_vars:
             print(var.name)
 
-    # def train(self):
-    #     def get_optimizer(loss, global_step=None, var_list=None, is_gradient_clip=False):
-    #         train_op = tf.train.AdamOptimizer(self.lr)
-    #         if is_gradient_clip:
-    #             grads_and_vars = train_op.compute_gradients(loss, var_list=var_list)
-    #             unchanged_gvs = [(grad, var) for grad, var in grads_and_vars if not 'LSTM' in var.name]
-    #             rnn_grad = [grad for grad, var in grads_and_vars if 'LSTM' in var.name]
-    #             rnn_var = [var for grad, var in grads_and_vars if 'LSTM' in var.name]
-    #             capped_grad, _ = tf.clip_by_global_norm(rnn_grad, clip_norm=3)
-    #             capped_gvs = list(zip(capped_grad, rnn_var))
-    #             train_op = train_op.apply_gradients(grads_and_vars=capped_gvs + unchanged_gvs, global_step=global_step)
-    #         else:
-    #             train_op = train_op.minimize(loss, global_step, var_list)
-    #         return train_op
+    def train(self):
+        def get_optimizer(loss, global_step=None, var_list=None, is_gradient_clip=False):
+            train_op = tf.train.AdamOptimizer(self.lr)
+            if is_gradient_clip:
+                grads_and_vars = train_op.compute_gradients(loss, var_list=var_list)
+                unchanged_gvs = [(grad, var) for grad, var in grads_and_vars if not 'LSTM' in var.name]
+                rnn_grad = [grad for grad, var in grads_and_vars if 'LSTM' in var.name]
+                rnn_var = [var for grad, var in grads_and_vars if 'LSTM' in var.name]
+                capped_grad, _ = tf.clip_by_global_norm(rnn_grad, clip_norm=3)
+                capped_gvs = list(zip(capped_grad, rnn_var))
+                train_op = train_op.apply_gradients(grads_and_vars=capped_gvs + unchanged_gvs, global_step=global_step)
+            else:
+                train_op = train_op.minimize(loss, global_step, var_list)
+            return train_op
 
-    #     global_step = tf.Variable(initial_value=0, dtype=tf.int32, trainable=False)
-    #     self.global_step = global_step
+        global_step = tf.Variable(initial_value=0, dtype=tf.int32, trainable=False)
+        self.global_step = global_step
 
-    #     # build model
-    #     self.build_model()
+        # build model
+        self.build_model()
 
-    #     # learning rate decay
-    #     self.lr = tf.train.polynomial_decay(self.learning_rate, global_step, self.max_steps, end_learning_rate=0.0,
-    #                                         power=0.3)
-    #     tf.summary.scalar('learning_rate', self.lr)
+        # learning rate decay
+        self.lr = tf.train.polynomial_decay(self.learning_rate, global_step, self.max_steps, end_learning_rate=0.0,
+                                            power=0.3)
+        tf.summary.scalar('learning_rate', self.lr)
 
-    #     # training operators
-    #     train_gnet = get_optimizer(self.loss_total, global_step, self.all_vars)
+        # training operators
+        train_gnet = get_optimizer(self.loss_total, global_step, self.all_vars)
 
-    #     # session and thread
-    #     gpu_options = tf.GPUOptions(allow_growth=True)
-    #     sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
-    #     self.sess = sess
-    #     sess.run(tf.global_variables_initializer())
-    #     self.saver = tf.train.Saver(max_to_keep=50, keep_checkpoint_every_n_hours=1)
-    #     coord = tf.train.Coordinator()
-    #     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
+        # session and thread
+        gpu_options = tf.GPUOptions(allow_growth=True)
+        sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+        self.sess = sess
+        sess.run(tf.global_variables_initializer())
+        self.saver = tf.train.Saver(max_to_keep=50, keep_checkpoint_every_n_hours=1)
+        coord = tf.train.Coordinator()
+        threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
-    #     # training summary
-    #     summary_op = tf.summary.merge_all()
-    #     summary_writer = tf.summary.FileWriter(self.train_dir, sess.graph, flush_secs=30)
+        # training summary
+        summary_op = tf.summary.merge_all()
+        summary_writer = tf.summary.FileWriter(self.train_dir, sess.graph, flush_secs=30)
 
-    #     for step in xrange(sess.run(global_step), self.max_steps + 1):
+        for step in xrange(sess.run(global_step), self.max_steps + 1):
 
-    #         start_time = time.time()
+            start_time = time.time()
 
-    #         # update G network
-    #         _, loss_total_val = sess.run([train_gnet, self.loss_total])
+            # update G network
+            _, loss_total_val = sess.run([train_gnet, self.loss_total])
 
-    #         duration = time.time() - start_time
-    #         # print loss_value
-    #         assert not np.isnan(loss_total_val), 'Model diverged with loss = NaN'
+            duration = time.time() - start_time
+            # print loss_value
+            assert not np.isnan(loss_total_val), 'Model diverged with loss = NaN'
 
-    #         if step % 5 == 0:
-    #             num_examples_per_step = self.batch_size
-    #             examples_per_sec = num_examples_per_step / duration
-    #             sec_per_batch = float(duration)
+            if step % 5 == 0:
+                num_examples_per_step = self.batch_size
+                examples_per_sec = num_examples_per_step / duration
+                sec_per_batch = float(duration)
 
-    #             format_str = ('%s: step %d, loss = (%.5f; %.5f, %.5f)(%.1f data/s; %.3f s/bch)')
-    #             print(format_str % (datetime.now().strftime('%Y-%m-%d %H:%M:%S'), step, loss_total_val, 0.0,
-    #                                 0.0, examples_per_sec, sec_per_batch))
+                format_str = ('%s: step %d, loss = (%.5f; %.5f, %.5f)(%.1f data/s; %.3f s/bch)')
+                print(format_str % (datetime.now().strftime('%Y-%m-%d %H:%M:%S'), step, loss_total_val, 0.0,
+                                    0.0, examples_per_sec, sec_per_batch))
 
-    #         if step % 20 == 0:
-    #             # summary_str = sess.run(summary_op, feed_dict={inputs:batch_input, gt:batch_gt})
-    #             summary_str = sess.run(summary_op)
-    #             summary_writer.add_summary(summary_str, global_step=step)
+            if step % 20 == 0:
+                # summary_str = sess.run(summary_op, feed_dict={inputs:batch_input, gt:batch_gt})
+                summary_str = sess.run(summary_op)
+                summary_writer.add_summary(summary_str, global_step=step)
 
-    #         # Save the model checkpoint periodically.
-    #         if step % 1000 == 0 or step == self.max_steps:
-    #             checkpoint_path = os.path.join(self.train_dir, 'checkpoints')
-    #             self.save(sess, checkpoint_path, step)
+            # Save the model checkpoint periodically.
+            if step % 1000 == 0 or step == self.max_steps:
+                checkpoint_path = os.path.join(self.train_dir, 'checkpoints')
+                self.save(sess, checkpoint_path, step)
 
     def save(self, sess, checkpoint_dir, step):
         model_name = "deblur.model"
@@ -240,20 +240,20 @@ class DEBLUR(object):
         self.saver.save(sess, os.path.join(checkpoint_dir, model_name), global_step=step)
 
     def load(self, sess, checkpoint_dir, step=None):
-        print(" [*] Reading checkpoints...")
+        # print(" [*] Reading checkpoints...")
         model_name = "deblur.model"
         ckpt = tf.train.get_checkpoint_state(checkpoint_dir)
 
         if step is not None:
             ckpt_name = model_name + '-' + str(step)
             self.saver.restore(sess, os.path.join(checkpoint_dir, ckpt_name))
-            print(" [*] Reading intermediate checkpoints... Success")
+            # print(" [*] Reading intermediate checkpoints... Success")
             return str(step)
         elif ckpt and ckpt.model_checkpoint_path:
             ckpt_name = os.path.basename(ckpt.model_checkpoint_path)
             ckpt_iter = ckpt_name.split('-')[1]
             self.saver.restore(sess, os.path.join(checkpoint_dir, ckpt_name))
-            print(" [*] Reading updated checkpoints... Success")
+            # print(" [*] Reading updated checkpoints... Success")
             return ckpt_iter
         else:
             print(" [*] Reading checkpoints... ERROR")
@@ -303,7 +303,7 @@ class DEBLUR(object):
             deblur = sess.run(outputs, feed_dict={inputs: blurPad / 255.0})
             duration = time.time() - start
             imageName = "gan_"+imgName
-            print('Saving results: %s ... %4.3fs' % (os.path.join(output_path, imageName), duration))
+            # print('Saving results: %s ... %4.3fs' % (os.path.join(output_path, imageName), duration))
             res = deblur[-1]
             if self.args.model != 'color':
                 res = np.transpose(res, (3, 1, 2, 0))
@@ -318,3 +318,4 @@ class DEBLUR(object):
             if rot:
                 res = np.transpose(res, [1, 0, 2])
             scipy.misc.imsave(os.path.join(output_path, imageName), res)
+        print('Success train gan')

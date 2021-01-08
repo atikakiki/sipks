@@ -1,49 +1,26 @@
 @extends('base.template')
 @section('moreCSS')
-  <!-- <style type="text/css">
-  	/* Make the image fully responsive */
-  	  .content
-  	  {
-/*  	  	background-image: url("assets/boweFassetsr_components/bootstrap-daterangepicker/daterangepicker.js");*/
-
-  	  	height: 100px;
-  	  	background-size: cover;
-  	  	background-position: center;
-  	  	animation: ganti 7s infinite;
-  	  }
-
-  	  @keyframes ganti
-  	  {
-  	  	30%{
-  	  		background-image: url("assets/dist/img/SIPKS1.jpeg");	
-  	  	}
-  	  	60%{
-  	  		background-image: url("assets/dist/img/SIPKS2.png");
-  	  	}
-  	  	90%{
-  	  		background-image: url("assets/dist/img/SIPKS1.jpeg");
-  	  	}
-  	  	60%{
-  	  		background-image: url("assets/dist/img/SIPKS2.png");
-  	  	}
-  	  	90%{
-  	  		background-image: url("assets/dist/img/SIPKS1.jpeg");	
-  	  	}
-  	  }
-    
- 
-  </style> -->
+  
 @endsection
 
 @section('content')
 <section class="content">
 <div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="box">
+        <div class="box-header">
+        @foreach($profil as $p)
+        <h4>Selamat Datang, {{$p->name}} !</h4>
+        <p>{{$p->nama_sekolah}}</p>
+        @endforeach
+        </div>
+      </div>
+  </div>
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="fa fa-home"></i></span>
-
+            <span class="info-box-icon bg-aqua"><i class="fa fa-file-text-o"></i></span>
             <div class="info-box-content">
-              <span class="info-box-text">Sekolah</span>
+              <span class="info-box-text">Total Pengajuan</span>
               <span class="info-box-number">{{$count}}</span>
             </div>
             <!-- /.info-box-content -->
@@ -95,7 +72,7 @@
         </div>
         <!-- /.col -->
       </div>
-      <div class = "box">
+      <div class = "box box-solid box-success">
       <div class="box-header with-border">
               <h3 class="box-title">Pengajuan Selesai</h3>
             </div>
@@ -130,7 +107,7 @@
       </div>
       </div>
 
-      <div class = "box">
+      <div class = "box box-solid box-danger">
       <div class="box-header with-border">
               <h3 class="box-title">Pengajuan Ditolak</h3>
             </div>

@@ -28,10 +28,16 @@ class DashboardController extends Controller
                                         ->where('Pengajuan.id_sekolah','=', Auth::user()->id_sekolah)
                                         ->where('Pengajuan.status_pengajuan','3')
                                         ->get();
-        $data['count'] = Sekolah::get()->count();
+        $data['count'] = Pengajuan::get()->count();
         $data['belum_disetujui'] = Pengajuan::whereIn('status_pengajuan', [0,1])->get()->count();
         $data['ditolak'] = Pengajuan::where('status_pengajuan', '3')->get()->count();
         $data['selesai_disetujui'] = Pengajuan::where('status_pengajuan', '2')->get()->count();
+        $data['profil']= DB::table('Users')
+                        ->join('Sekolah', 'Users.id_sekolah','=','Sekolah.id_sekolah')
+                        // ->where('Sekolah.id_sekolah','=', Auth::user()->id_sekolah)
+                        ->where('Users.id','=',Auth::user()->id)
+                        ->get();
+        // dd($data['profil']);
     	return view('directory.dashboard',$data);
     }
 

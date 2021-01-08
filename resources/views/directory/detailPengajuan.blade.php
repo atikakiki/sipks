@@ -26,10 +26,17 @@
           <div class = "page-header">
           @foreach ($judul as $key => $j)
             <h3> {{$j->judul_pengajuan}} </h3>
-            <h5> Deskripsi : <br> {{$j->deskripsi_pengajuan}}</h5>
+            <h5> Deskripsi : {{$j->deskripsi_pengajuan}}</h5>
             @if($j->status_pengajuan =='0')
+            <h5> Status    : Belum Disetujui</h5>
             <button onclick="location.href='{{ route('tambahDetail',[$j->id_pengajuan])}}'" type="button" class = "btn btn-danger"><i class = "fa fa-plus"></i> Tambah Detail Pengajuan</button>
-              @endif
+            @elseif($j->status_pengajuan =='1')
+            <h5> Status    : Disetujui Bendahara</h5>
+            @elseif($j->status_pengajuan =='2')
+            <h5> Status    : Disetujui Kepala Sekolah</h5>
+            @elseif($j->status_pengajuan =='3')
+            <h5> Status    : Ditolak</h5>
+            @endif
           </div>
        
 	        <table id="example2" class="table table-striped table-bordered bg-info table-hover text-center">
@@ -41,7 +48,7 @@
                 <th>Jumlah</th>
                 <th>Harga Satuan</th>
                 <th>Total</th>
-                <th>Aksi</th>
+                
 	            </tr>
 	          </thead>
 	          <tbody>
@@ -73,7 +80,7 @@
                       <h4 class="modal-title">Hapus Detail</h4>
                     </div>
                     <div class="modal-body">
-                      <p>Anda yakin ingin menghapus detail pengajuan {{$dp->id_mapping_pengajuan_detail}} ?</p>
+                      <p>Anda yakin ingin menghapus detail pengajuan ?</p>
                     </div>
                     <div class="modal-footer">
                       <form action = "{{ url('detailpengajuan/hapus/'.$dp->id_pengajuan.'/'.$dp->id_mapping_pengajuan_detail) }}" method="post">
@@ -98,35 +105,37 @@
                     <h4 class="modal-title">Edit Detail Pengajuan</h4>
                   </div>
                   <div class="modal-body">
-                  <form action="{{ url('detailpengajuan/edit/'.$dp->id_pengajuan.'/'.$dp->id_mapping_pengajuan_detail) }}" method="POST">
+                  <form action="{{ url('detailpengajuan/edit') }}" method="POST">
                     @csrf
                     @method('put')
                   <!--   <div class="form-group"> -->
                      <!--  <label>ID Detail</label>
- -->                      <input type="text" class="form-control" name="id_mapping_pengajuan_detail" value="{{ $dp->id_mapping_pengajuan_detail}}" required>
+ -->                  <input type="hidden" class="form-control" name="id_pengajuan" value="{{ $dp->id_pengajuan}}">
+                      <input type="hidden" class="form-control" name="id_mapping_pengajuan_detail" value="{{ $dp->id_mapping_pengajuan_detail}}" required>
                    <!--  </div> -->
                     <div class="form-group">
                       <label>Nama Detail</label>
-                      <!-- <input type="text" class="form-control" name="id_detail" value="{{$dp->id_detail}}" required>{{$dp->nama_detail}} -->
-                      <select class="form-control" name="id_detail">
+                      <input type="text" disabled class="form-control" name="id_detail" value="{{$dp->nama_detail}}" required>
+                      <!-- <select class="form-control" name="id_detail">
                         <option value="{{$dp->id_detail}}" selected>{{$dp->nama_detail}}</option>
                         @foreach($details as $key=>$detail)
                         <option value="{{$detail->id_detail}}">{{$detail->nama_detail}}</option>
                         @endforeach
-                      </select>
+                      </select> -->
+                    </div>
+                    <div class="form-group">
+                    <label>Harga Satuan</label>
+                      <input type="hidden" class="form-control" name="harga_satuan_detail" value="{{$dp->harga_satuan}}" required>
+                      <input type="text" disabled class="form-control" name="harga_satuan_detail_view" value="{{$dp->harga_satuan}}" required>
                     </div>
                     <div class="form-group">
                       <label>Jumlah</label>
                       <input type="number" class="form-control" name="jumlah_detail" value="{{$dp->jumlah_detail}}" required>
                     </div>
-                    <div class="form-group">
-                      <label>Harga Satuan</label>
-                      <input type="text" class="form-control" name="harga_satuan_detail" value="{{$dp->harga_satuan}}" required disabled>
-                    </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label>Total</label>
                       <input type="text" class="form-control" name="sub_total" value="{{$dp->sub_total}}" required>
-                    </div>
+                    </div> -->
 
                     <div class="box-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>

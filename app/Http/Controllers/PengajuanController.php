@@ -148,7 +148,9 @@ class PengajuanController extends Controller
                 $pengajuan->jumlah_pengajuan += $jumlah;
                 $pengajuan->save();
             }
-            return response()->json('berhasil tambah detail');
+            // return redirect('/pengajuan')
+            return redirect()->route('detailawal', [$request->id_pengajuan]);
+            // return response()->json('berhasil tambah detail');
         }
 
     public function tambahDetailPengajuan($id){
@@ -212,15 +214,24 @@ class PengajuanController extends Controller
         // redirect()->action('App\Http\Controllers\PengajuanController@detailPengajuan', [1]);
     }
 
-    public function editdetailPengajuan(Request $request,$id_mapping_pengajuan_detail){
-        $updateDetail = MappingDetailPengajuan::find($id_mapping_pengajuan_detail);
-        $updateDetail->id_detail = $request->id_detail;
+    public function editdetailPengajuan(Request $request){
+        $updateDetail = MappingDetailPengajuan::find($request->id_mapping_pengajuan_detail);
+        // $updateDetail->id_detail = $request->id_detail;
         $updateDetail->jumlah_detail = $request->jumlah_detail;
         // $updateDetail->harga_satuan_detail = $request->harga_satuan_detail;
-        $updateDetail->sub_total = $request->sub_total;
-
-        $updateDetail->save();
-        return redirect()->route('detailawal', [$id_pengajuan]);
+        $updateDetail->sub_total = $request->jumlah_detail*$request->harga_satuan_detail;
+        // dd($updateDetail);
+        $updateDetail->update();
+        $nominal=0;
+        $data['nominal_pengajuan'] = MappingDetailPengajuan::where('id_pengajuan',$request->id_pengajuan)->select('sub_total')->get();
+        foreach($data['nominal_pengajuan'] as $item){
+                $nominal+=$item->sub_total;
+            }
+            // dd($nominal);
+        $pengajuan = Pengajuan::find($request->id_pengajuan);
+        $pengajuan->jumlah_pengajuan = $nominal;
+        $pengajuan->save();
+        return redirect()->route('detailawal', [$request->id_pengajuan]);
     }
 
 }
