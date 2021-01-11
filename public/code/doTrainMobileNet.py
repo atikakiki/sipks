@@ -63,7 +63,7 @@ if __name__ == '__main__':
     # nrp = '05111740000007'
     # nrp = 05111640000042
 
-    path = "C:\\xampp\\htdocs\\sipks_ta\\public\\uploadFace\\" + nrp
+    path = "C:\\xampp\\htdocs\\sipks\\public\\uploadFace\\" + nrp
 
     ModelmobileNet = createMobileNet()
     
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     nrp_np = np.array(nrp_list)
     ftr_np = np.array(ftr_list)
     ftr_np = ftr_np.reshape(ftr_np.shape[0],ftr_np.shape[2])
-    nmFILE = "C:\\xampp\\htdocs\\sipks_ta\\public\\code\\face.npz"
+    nmFILE = "C:\\xampp\\htdocs\\sipks\\public\\code\\face.npz"
     if os.path.exists(nmFILE):
         dataLoaded = np.load(nmFILE)
         ftr_np_old=dataLoaded['ftr_np']
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     print("Selesai ...")
     #
     now = datetime.now()
-    pathDEST = "C:\\xampp\\htdocs\\sipks_ta\\public\\trainedFace\\%s_%s"%(nrp,now.strftime("%Y_%m_%d_%H_%M_%S"))
+    pathDEST = "C:\\xampp\\htdocs\\sipks\\public\\trainedFace\\%s_%s"%(nrp,now.strftime("%Y_%m_%d_%H_%M_%S"))
     checkDirectory(pathDEST)
     os.system('move %s %s'%(path,pathDEST))        
     
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     else:
         modelLR = LogisticRegression(solver='lbfgs',n_jobs=-1, multi_class='auto',tol=0.8)
         modelLR.fit(ftr_np,nrp_np)
-        with open('C:\\xampp\\htdocs\\sipks_ta\\public\\code\\modelTR.pkl', 'wb') as f:
+        with open('C:\\xampp\\htdocs\\sipks\\public\\code\\modelTR.pkl', 'wb') as f:
             pickle.dump(modelLR, f)
             elapsed = time.time() - t
         print ("Save Model succeded Time Elapsed = %g"%elapsed)        
